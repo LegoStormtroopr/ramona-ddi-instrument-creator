@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/exist/rest/db/Ramona/DDI-Instrument_to_XForms.xsl"?>
+<DDIInstance id="x0" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr" xmlns="ddi:instance:3_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:instance:3_1 P:\DDI_3_1_Spec\XMLSchema\instance.xsd" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1">
+	<g:ResourcePackage id="AcidTest_Test_Form_1" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+		<r:Citation>
+			<r:Title/>
+		</r:Citation>
+		<g:Abstract id="x1">
+			<r:Content>x1</r:Content>
+		</g:Abstract>
+		<g:Purpose id="x2">
+			<r:Content/>
+		</g:Purpose>
+		<g:DataCollection>
+			<d:DataCollection id="x3" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+				<d:QuestionScheme id="qsAcidTest" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<r:Label>Carbon Farming Survey Questions</r:Label>
+					<d:MultipleQuestionItem id="AcidTest_Q_06" version="0.0.1">
+						<d:QuestionText>
+							<d:LiteralText>
+								<d:Text>What is the main reason you do not own a dog?</d:Text>
+							</d:LiteralText>
+						</d:QuestionText>
+						<d:SubQuestions>
+							<d:QuestionItem id="AcidTest_Q_07a" version="0.0.1">
+								<d:QuestionText>
+									<d:LiteralText>
+										<d:Text>Select one:</d:Text>
+									</d:LiteralText>
+								</d:QuestionText>
+								<d:CodeDomain>
+									<r:CodeSchemeReference>
+										<r:ID>codeScheme-no_dog</r:ID>
+										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+										<r:Version>0.0.1</r:Version>
+									</r:CodeSchemeReference>
+								</d:CodeDomain>
+							</d:QuestionItem>
+							<d:QuestionItem id="AcidTest_Q_07b" version="0.0.1">
+								<d:QuestionText>
+									<d:LiteralText>
+										<d:Text>Please specify</d:Text>
+									</d:LiteralText>
+								</d:QuestionText>
+								<d:TextDomain/>
+							</d:QuestionItem>
+						</d:SubQuestions>
+					</d:MultipleQuestionItem>
+					<d:QuestionItem id="AcidTest_Q_05" version="0.0.1">
+						<d:QuestionText>
+							<d:LiteralText>
+								<d:Text>Do you own a dog?</d:Text>
+							</d:LiteralText>
+						</d:QuestionText>
+						<d:CodeDomain>
+							<r:CodeSchemeReference>
+								<r:ID>codeScheme-YesNo</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:CodeSchemeReference>
+						</d:CodeDomain>
+					</d:QuestionItem>
+					<d:QuestionItem id="AcidTest_Q_10" version="0.0.1">
+						<d:QuestionText>
+							<d:LiteralText>
+								<d:Text>What is your dog's name?</d:Text>
+							</d:LiteralText>
+						</d:QuestionText>
+						<d:TextDomain/>
+					</d:QuestionItem>
+					<d:QuestionItem id="AcidTest_Q_20" version="0.0.1">
+						<d:QuestionText>
+							<d:LiteralText>
+								<d:Text>What is the sex of </d:Text>
+							</d:LiteralText>
+							<d:ConditionalText>
+								<r:Description>This word substitution will insert the name of the dog, or if the name is not known it will insert the text "your dog"</r:Description>
+								<d:Expression>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_10']</r:Code>
+									<r:Code programmingLanguage="responseML_default">"your dog"</r:Code>
+									<r:SourceQuestionReference>
+										<r:Scheme>
+											<r:ID>qsAcidTest</r:ID>
+											<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+											<r:Version>0.0.1</r:Version>
+										</r:Scheme>
+										<r:ID>AcidTest_Q_10</r:ID>
+										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+										<r:Version>0.0.1</r:Version>
+									</r:SourceQuestionReference>
+								</d:Expression>
+							</d:ConditionalText>
+							<d:LiteralText>
+								<d:Text>?</d:Text>
+							</d:LiteralText>
+						</d:QuestionText>
+						<d:CodeDomain>
+							<r:CodeSchemeReference>
+								<r:ID>codeScheme-Sex-MF</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:CodeSchemeReference>
+						</d:CodeDomain>
+					</d:QuestionItem>
+					<d:QuestionItem id="AcidTest_Q_25" version="0.0.1">
+						<d:QuestionText>
+							<d:LiteralText>
+								<d:Text>Has </d:Text>
+							</d:LiteralText>
+							<d:ConditionalText>
+								<d:Expression>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_10']</r:Code>
+									<r:SourceQuestionReference>
+										<r:Scheme>
+											<r:ID>qsAcidTest</r:ID>
+											<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+											<r:Version>0.0.1</r:Version>
+										</r:Scheme>
+										<r:ID>AcidTest_Q_10</r:ID>
+										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+										<r:Version>0.0.1</r:Version>
+									</r:SourceQuestionReference>
+								</d:Expression>
+							</d:ConditionalText>
+							<d:LiteralText>
+								<d:Text> birthed a litter of puppies?</d:Text>
+							</d:LiteralText>
+						</d:QuestionText>
+						<d:CodeDomain>
+							<r:CodeSchemeReference>
+								<r:ID>codeScheme-YesNo</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:CodeSchemeReference>
+						</d:CodeDomain>
+					</d:QuestionItem>
+					<d:QuestionItem id="AcidTest_Q_30" version="0.0.1">
+						<d:QuestionText>
+							<d:LiteralText>
+								<d:Text>Does </d:Text>
+							</d:LiteralText>
+							<d:ConditionalText>
+								<d:Expression>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='AcidTest_QC_20']]/@subtext</r:Code>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='AcidTest_QC_20']]/@subtext</r:Code>
+									<r:SourceQuestionReference>
+										<r:Scheme>
+											<r:ID>qsAcidTest</r:ID>
+											<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+											<r:Version>0.0.1</r:Version>
+										</r:Scheme>
+										<r:ID>AcidTest_Q_30</r:ID>
+										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+										<r:Version>0.0.1</r:Version>
+									</r:SourceQuestionReference>
+								</d:Expression>
+							</d:ConditionalText>
+							<d:LiteralText>
+								<d:Text>  like to play 'fetch''?</d:Text>
+							</d:LiteralText>
+						</d:QuestionText>
+						<d:CodeDomain>
+							<r:CodeSchemeReference>
+								<r:ID>codeScheme-YesNo</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:CodeSchemeReference>
+						</d:CodeDomain>
+					</d:QuestionItem>
+					<d:QuestionItem id="AcidTest_Q_40" version="0.0.1">
+						<d:QuestionText>
+							<d:LiteralText>
+								<d:Text>What does </d:Text>
+							</d:LiteralText>
+							<d:ConditionalText>
+								<d:Expression>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='AcidTest_QC_20']]/@subtext</r:Code>
+									<r:SourceQuestionReference>
+										<r:Scheme>
+											<r:ID>qsAcidTest</r:ID>
+											<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+											<r:Version>0.0.1</r:Version>
+										</r:Scheme>
+										<r:ID>AcidTest_Q_30</r:ID>
+										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+										<r:Version>0.0.1</r:Version>
+									</r:SourceQuestionReference>
+								</d:Expression>
+							</d:ConditionalText>
+							<d:LiteralText>
+								<d:Text>  like to 'fetch' (click all that apply)?</d:Text>
+							</d:LiteralText>
+						</d:QuestionText>
+						<d:CategoryDomain>
+							<r:CategorySchemeReference>
+								<r:ID>catScheme-AcidTest-Fetchables</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:CategorySchemeReference>
+						</d:CategoryDomain>
+					</d:QuestionItem>
+					<d:QuestionItem id="AcidTest_Q_80" version="0.0.1">
+						<d:QuestionText>
+							<d:LiteralText>
+								<d:Text>If you have any comments on this survey please write them below:</d:Text>
+							</d:LiteralText>
+						</d:QuestionText>
+						<d:TextDomain maxLength="5000"/>
+					</d:QuestionItem>
+				</d:QuestionScheme>
+				<d:ControlConstructScheme isMaintainable="true" id="AcidTest_QuestionConstructs" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<d:QuestionConstruct id="AcidTest_QC_10" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_10</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+					<d:QuestionConstruct id="AcidTest_QC_20" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_20</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+					<d:QuestionConstruct id="AcidTest_QC_25" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_25</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+					<d:QuestionConstruct id="AcidTest_QC_30" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_30</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+					<d:QuestionConstruct id="AcidTest_QC_40" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_40</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+					<d:QuestionConstruct id="AcidTest_QC_50" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_50</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+					<d:QuestionConstruct id="AcidTest_QC_05" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_05</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+					<d:QuestionConstruct id="AcidTest_QC_06" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_06</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+					<d:QuestionConstruct id="AcidTest_QC_80" version="0.0.1">
+						<d:QuestionReference>
+							<r:Scheme>
+								<r:ID>qsAcidTest</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>AcidTest_Q_80</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</d:QuestionReference>
+					</d:QuestionConstruct>
+				</d:ControlConstructScheme>
+				<d:ControlConstructScheme isMaintainable="true" id="AcidTest_main" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<d:IfThenElse id="AcidTest_IF_3">
+						<d:IfCondition>
+							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_20'] = 2</r:Code>
+							<r:Code programmingLanguage="orderedSQRConditional">2</r:Code>
+							<r:SourceQuestionReference>
+								<r:Scheme>
+									<r:ID>qsAcidTest</r:ID>
+									<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+									<r:Version>0.0.1</r:Version>
+								</r:Scheme>
+								<r:ID>AcidTest_Q_20</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:SourceQuestionReference>
+						</d:IfCondition>
+						<d:ThenConstructReference>
+							<r:ID>AcidTest_QC_25</r:ID>
+						</d:ThenConstructReference>
+					</d:IfThenElse>
+					<d:IfThenElse id="AcidTest_IF_2">
+						<d:IfCondition>
+							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_30'] = 1</r:Code>
+							<r:Code programmingLanguage="orderedSQRConditional">1</r:Code>
+							<r:SourceQuestionReference>
+								<r:Scheme>
+									<r:ID>qsAcidTest</r:ID>
+									<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+									<r:Version>0.0.1</r:Version>
+								</r:Scheme>
+								<r:ID>AcidTest_Q_30</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:SourceQuestionReference>
+						</d:IfCondition>
+						<d:ThenConstructReference>
+							<r:ID>seq_4</r:ID>
+						</d:ThenConstructReference>
+					</d:IfThenElse>
+					<d:IfThenElse id="AcidTest_IF_1">
+						<d:IfCondition>
+							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_05'] = 1</r:Code>
+							<r:Code programmingLanguage="orderedSQRConditional">1</r:Code>
+							<r:SourceQuestionReference>
+								<r:Scheme>
+									<r:ID>qsAcidTest</r:ID>
+									<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+									<r:Version>0.0.1</r:Version>
+								</r:Scheme>
+								<r:ID>AcidTest_Q_05</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:SourceQuestionReference>
+						</d:IfCondition>
+						<d:ThenConstructReference>
+							<r:ID>seq_1</r:ID>
+						</d:ThenConstructReference>
+						<d:ElseConstructReference>
+							<r:ID>seq_2</r:ID>
+						</d:ElseConstructReference>
+					</d:IfThenElse>
+					<d:Sequence id="acidTest">
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_QC_05</r:ID>
+						</d:ControlConstructReference>
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_IF_1</r:ID>
+						</d:ControlConstructReference>
+						<d:ControlConstructReference>
+							<r:ID>seq_5</r:ID>
+						</d:ControlConstructReference>
+					</d:Sequence>
+					<d:Sequence id="seq_1">
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_QC_10</r:ID>
+						</d:ControlConstructReference>
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_QC_20</r:ID>
+						</d:ControlConstructReference>
+						<d:ControlConstructReference>
+							<r:ID>seq_3</r:ID>
+						</d:ControlConstructReference>
+					</d:Sequence>
+					<d:Sequence id="seq_2">
+						<r:Label>Reasons for non-ownership</r:Label>
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_QC_06</r:ID>
+						</d:ControlConstructReference>
+					</d:Sequence>
+					<d:Sequence id="seq_3">
+						<r:Label>Exercise activities</r:Label>
+						<d:Type/>
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_QC_30</r:ID>
+						</d:ControlConstructReference>
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_IF_2</r:ID>
+						</d:ControlConstructReference>
+					</d:Sequence>
+					<d:Sequence id="seq_5">
+						<r:Label>Comments</r:Label>
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_QC_80</r:ID>
+						</d:ControlConstructReference>
+					</d:Sequence>
+					<d:Sequence id="seq_4">
+						<d:ControlConstructReference>
+							<r:ID>AcidTest_QC_40</r:ID>
+						</d:ControlConstructReference>
+					</d:Sequence>
+				</d:ControlConstructScheme>
+				<d:Instrument isMaintainable="true" id="Inst_1" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<d:InstrumentName>Australian Dog Ownership Survey</d:InstrumentName>
+					<r:Description><xhtml:p><xhtml:strong>This is an example <xhtml:a href="http://www.ddialliance.org">DDI 3.1 File</xhtml:a> for demonstrating the capabilities of the <xhtml:em>Ramona DDI3.1 to XForms Transform Engine</xhtml:em>.</xhtml:strong></xhtml:p><xhtml:div> This survey can be used to demonstrate the following common interactive survey requirements:
+						<xhtml:ul>
+								<xhtml:li><xhtml:strong>Question sequencing: </xhtml:strong>Answering no to Question 1 will allow a respondent to bypass questions 2-5.</xhtml:li>
+								<xhtml:li><xhtml:strong>Skip generation: </xhtml:strong>Depending on how a respondent answers a <xhtml:em>coded</xhtml:em> questions, they will be presented with an in-document hyperlink to take them to the next available question.</xhtml:li>
+								<xhtml:li><xhtml:strong>Word substitutions: </xhtml:strong>The answers in question 2 and 3 are used to dynamically personalise the form. Question 2 will insert the name of the dog in question 3, and the response to question 3 will add the correct gendered pronoun to questions 4 and 5.</xhtml:li>
+						</xhtml:ul>
+					</xhtml:div>
+						<xhtml:h2>Purpose of Collection</xhtml:h2>To gather information on dog ownership and habits.</r:Description>
+					<r:Software id="1">
+						<r:Name>XForms-Ramona</r:Name>
+						<r:Version>1.0</r:Version>
+						<r:Description>DDI to XForms Conversion software.</r:Description>
+						<r:Date>
+							<r:SimpleDate>1977</r:SimpleDate>
+						</r:Date>
+					</r:Software>
+					<d:ControlConstructReference isReference="true">
+						<r:Scheme>
+							<r:ID>AcidTest_main2</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</r:Scheme>
+						<r:ID>acidTest</r:ID>
+						<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+						<r:Version>0.0.1</r:Version>
+					</d:ControlConstructReference>
+				</d:Instrument>
+			</d:DataCollection>
+		</g:DataCollection>
+		<g:LogicalProduct>
+			<l:LogicalProduct id="catScheme-AcidTest-Fetchables_LP" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+				<l:CategoryScheme id="catScheme-AcidTest-Fetchables" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<r:Label>Reasons people might like Categories</r:Label>
+					<l:Category id="cat-AcidTest_WhyLikeCat-ball" version="0.0.1">
+						<r:Label>Ball</r:Label>
+					</l:Category>
+					<l:Category id="cat-AcidTest_WhyLikeCat-bones" version="0.0.1">
+						<r:Label>Bones</r:Label>
+					</l:Category>
+					<l:Category id="cat-AcidTest_WhyLikeCat-sticks" version="0.0.1">
+						<r:Label>Sticks</r:Label>
+					</l:Category>
+					<l:Category id="cat-AcidTest_WhyLikeCat-frisbee" version="0.0.1">
+						<r:Label>Frisbee</r:Label>
+					</l:Category>
+					<l:Category id="cat-AcidTest_WhyLikeCat-news" version="0.0.1">
+						<r:Label>Newspaper</r:Label>
+					</l:Category>
+					<l:Category id="cat-AcidTest_WhyLikeCat-post" version="0.0.1">
+						<r:Label>Postman</r:Label>
+					</l:Category>
+				</l:CategoryScheme>
+			</l:LogicalProduct>
+		</g:LogicalProduct>
+		<g:LogicalProduct>
+			<l:LogicalProduct id="SEX_CLASSIFICATION" agency="com.kidstrythisathome.ddirepo.legostormtroopr" version="0.0.1">
+				<r:Label>Classification of Sex</r:Label>
+				<r:Description>
+					<xhtml:h1>Classification and Coding</xhtml:h1>
+					<xhtml:h2>The classification criteria</xhtml:h2>
+8.  Physical biology is the criterion used to classify persons into the categories 'male' and 'female'.  This criterion is physical rather than genetic to cover the exceptional cases such as sex change operations.  In the vast majority of cases the physical and genetic categories are identical.  
+
+<xhtml:h2>The standard classification</xhtml:h2>
+9.  Sex is a flat classification having only one level with the two categories 'Male' and 'Female'. 
+10.  In some situations there may be a need for the additional category 'Intersex or Indeterminate'.  This refers to a person, who because of a genetic condition, was born with reproductive organs or sex chromosomes that are not exclusively male or female (for whatever reason).
+
+<xhtml:h2>The code structure</xhtml:h2>
+11.  The code structure is simply:
+<xhtml:pre>
+1  Male
+2  Female
+</xhtml:pre>
+12.  If it is necessary to include the category 'Intersex or Indeterminate', it should be allocated the code '3'.
+
+<xhtml:h3>Residual categories and codes</xhtml:h3>
+13.  Not applicable.
+
+<xhtml:h3>Supplementary codes</xhtml:h3>
+14.  The following supplementary code is used to code inadequately described responses and non-responses:
+<xhtml:pre>0  Not stated/Inadequately described</xhtml:pre>
+					<xhtml:h2>Scope of the variable</xhtml:h2>
+15.  The variable Sex applies to all persons.
+
+<xhtml:h2>Application of the classification to other variables</xhtml:h2>
+16.  The Sex classification is not applicable to any other variable.</r:Description>
+				<l:CategoryScheme id="catScheme-Sex" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<r:Label>Sex Categories</r:Label>
+					<l:Category id="cat-Sex-Male" version="0.0.1">
+						<r:Label type="Ramona-Wordsub">he</r:Label>
+						<r:Label>Male</r:Label>
+					</l:Category>
+					<l:Category id="cat-Sex-Female" version="0.0.1">
+						<r:Label type="Ramona-Wordsub">she</r:Label>
+						<r:Label>Female</r:Label>
+					</l:Category>
+					<l:Category id="cat-Sex-Intersex" version="0.0.1">
+						<r:Label type="Ramona-Wordsub">it</r:Label>
+						<r:Label>Intersex or Indeterminate</r:Label>
+					</l:Category>
+				</l:CategoryScheme>
+				<l:CodeScheme id="codeScheme-Sex-MF" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<r:Label>Binary Sex Codes (Male, Female)</r:Label>
+					<r:Label>Binary Sex Codes (Male, Female)</r:Label>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-Sex-Male</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>1</l:Value>
+					</l:Code>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-Sex-Female</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>2</l:Value>
+					</l:Code>
+				</l:CodeScheme>
+				<l:CodeScheme id="codeScheme-Sex-MFI" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<r:Label>Ternary Sex Codes (Male, Female, Intersex)</r:Label>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-Sex-Male</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>1</l:Value>
+					</l:Code>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-Sex-Female</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>2</l:Value>
+					</l:Code>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-Sex-Intersex</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>3</l:Value>
+					</l:Code>
+				</l:CodeScheme>
+			</l:LogicalProduct>
+		</g:LogicalProduct>
+		<g:LogicalProduct>
+			<l:LogicalProduct id="x9" agency="com.kidstrythisathome.ddirepo.legostormtroopr" version="0.0.1">
+				<r:Label>ABS Classification of Sex</r:Label>
+				<r:Description>
+					<xhtml:h1>Classification and Coding</xhtml:h1>
+					<xhtml:h2>The classification criteria</xhtml:h2>
+8.  Physical biology is the criterion used to classify persons into the categories 'male' and 'female'.  This criterion is physical rather than genetic to cover the exceptional cases such as sex change operations.  In the vast majority of cases the physical and genetic categories are identical.  
+
+<xhtml:h2>The standard classification</xhtml:h2>
+9.  Sex is a flat classification having only one level with the two categories 'Male' and 'Female'. 
+10.  In some situations there may be a need for the additional category 'Intersex or Indeterminate'.  This refers to a person, who because of a genetic condition, was born with reproductive organs or sex chromosomes that are not exclusively male or female (for whatever reason).
+
+<xhtml:h2>The code structure</xhtml:h2>
+11.  The code structure is simply:
+<xhtml:pre>
+1  Male
+2  Female
+</xhtml:pre>
+12.  If it is necessary to include the category 'Intersex or Indeterminate', it should be allocated the code '3'.
+
+<xhtml:h3>Residual categories and codes</xhtml:h3>
+13.  Not applicable.
+
+<xhtml:h3>Supplementary codes</xhtml:h3>
+14.  The following supplementary code is used to code inadequately described responses and non-responses:
+<xhtml:pre>0  Not stated/Inadequately described</xhtml:pre>
+					<xhtml:h2>Scope of the variable</xhtml:h2>
+15.  The variable Sex applies to all persons.
+
+<xhtml:h2>Application of the classification to other variables</xhtml:h2>
+16.  The Sex classification is not applicable to any other variable.</r:Description>
+				<l:CategoryScheme id="catScheme-Sex" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<l:Category id="cat-no_have-allergy" version="0.0.1">
+						<r:Label>Allergy</r:Label>
+					</l:Category>
+					<l:Category id="cat-no_have-phobia" version="0.0.1">
+						<r:Label>Phobia of dogs</r:Label>
+					</l:Category>
+					<l:Category id="cat-no_have-nothouse" version="0.0.1">
+						<r:Label>Not allowed pets at current residence</r:Label>
+					</l:Category>
+					<l:Category id="cat-no_have-mailman" version="0.0.1">
+						<r:Label>I am a mailman</r:Label>
+					</l:Category>
+					<l:Category id="cat-no_have-other" version="0.0.1">
+						<r:Label>Other</r:Label>
+					</l:Category>
+				</l:CategoryScheme>
+				<l:CodeScheme id="codeScheme-no_dog" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<r:Label>Sex Codes (Male, Female)</r:Label>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-no_have-allergy</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>1</l:Value>
+					</l:Code>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-no_have-phobia</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>2</l:Value>
+					</l:Code>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-no_have-nothouse</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>3</l:Value>
+					</l:Code>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-no_have-mailman</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>4</l:Value>
+					</l:Code>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-Sex</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-no_have-other</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>5</l:Value>
+					</l:Code>
+				</l:CodeScheme>
+			</l:LogicalProduct>
+		</g:LogicalProduct>
+		<g:LogicalProduct>
+			<l:LogicalProduct id="x4" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+				<l:CategoryScheme id="catScheme-YesNo" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<r:Label>Yes/No Categories</r:Label>
+					<l:Category id="cat-YesNo-No" version="0.0.1">
+						<r:Label>No</r:Label>
+					</l:Category>
+					<l:Category id="cat-YesNo-Yes" version="0.0.1">
+						<r:Label>Yes</r:Label>
+					</l:Category>
+				</l:CategoryScheme>
+				<l:CodeScheme id="codeScheme-YesNo" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<r:Label>Yes/No Codes</r:Label>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-YesNo</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-YesNo-Yes</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>1</l:Value>
+					</l:Code>
+					<l:Code>
+						<l:CategoryReference>
+							<r:Scheme>
+								<r:ID>catScheme-YesNo</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>cat-YesNo-No</r:ID>
+							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+							<r:Version>0.0.1</r:Version>
+						</l:CategoryReference>
+						<l:Value>2</l:Value>
+					</l:Code>
+				</l:CodeScheme>
+			</l:LogicalProduct>
+		</g:LogicalProduct>
+		<c:UniverseScheme id="populations" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr"/>
+	</g:ResourcePackage>
+</DDIInstance>

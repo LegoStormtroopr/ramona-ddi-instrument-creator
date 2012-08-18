@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<css>
+      /* CSS Based on stylesheet from: http://en.wikibooks.org/wiki/XForms/Dynamic_Labels */
+ 		@namespace xf url("http://www.w3.org/2002/xforms");
+ body  {
+	counter-reset: majorSection;      /* Create a chapter counter scope */
+	counter-increment: majorSection;  /* Add 1 to majorSection */
+	padding:0px;
+	margin:0px;
+	background-color: #FCF8DC;
+}
+
+.mainForm {
+	padding-left:25px;
+}
+
+/*
+	MAIN LAYOUT FOR THE TWO COLUMN STUFF IS HERE
+*/
+
+#majorsections > h2 {
+	font-size:13pt;
+}
+
+#majorsections {
+	background-color:#EEF3E2;
+	padding:15px;
+	width:150px;
+	height:100%;
+	position:fixed;
+	left:660px;
+	top:0px;
+	border-left:5px solid #FEE0C6;
+	border-right:5px solid #FEE0C6;
+}
+#survey {
+	padding:15px;
+	margin:0px;
+	background-color:#ECF1EF;
+	border-left:5px solid #FEE0C6;
+	width:595px;
+	margin-left:30px;
+}
+
+.group-label {text-align:left;font-weight:bold;font-size:12pt;}
+
+.xforms-item {margin-left:20px;}
+
+input.xforms-value, textarea.xforms-value  {
+	margin-left:60px;
+}
+
+xf|control { /* border-bottom: 1px dashed red;*/ margin-bottom:1em; overflow: auto; padding-bottom:2px;}
+
+xf|disabled  {
+	display: none !important;
+	opacity: .5;
+	color: gray;
+}
+
+textarea {
+	max-width: 60%;
+	min-height:10em;
+}
+
+.xforms-disabled .value  {
+	visibility:block;
+	display: none !important;
+}
+
+/* This line ensures all the separate input controls appear on their own lines */
+xf|input, xf|select, xf|select1, xf|textarea {display:block; margin:5px 0; margin-left:30px;}
+
+/* Subquestion text should stay on the same line. */
+
+ 
+/* Makes the labels right aligned in a 200px wide column that floats to the left of the input controls. * /
+xf|input  xf|label, xf|select  xf|label, xf|select1  xf|label, xf|textarea  xf|label {margin-right:20px; width:400px; float:left; border-bottom: 1px dotted black} */
+
+xf|input  xf|label, xf|select  xf|label, xf|select1  xf|label, xf|textarea  xf|label {margin-right:20px; padding-right:50px; display:block;}
+
+/* Collapse question text and numbering to inline elements to put number and text on same line */
+  .question .xforms-label, .question .questionNumber, .question .xforms-control {
+	display:inline !important;
+}
+
+.questionText {
+	margin-left:35px;display: block;
+}
+.questionText .words {
+ font-weight: normal;
+}
+
+.questionText .words * , .questionText .questionText {
+	font-weight: normal;
+}
+
+.question .value {display: inline;}
+
+.question {display: block; padding-bottom: 15px;}
+
+.questionNumber {
+	display:inline;
+	font-weight:bold;
+	float:left;
+	text-align:right;
+	width:20px;
+}
+
+.subquestion {
+	padding-left: 20px;
+}
+
+.subquestion, .subquestion * {
+	font-weight: normal !important;
+}
+
+.instrumentDescription h2, .statement h2, .questionNote h2 {
+	font-size: 13pt;
+	font-weight: bold !important;
+	text-decoration: underline;
+	padding-bottom:1px;
+	margin-bottom: 1px;
+	padding-top:5px;
+	margin-top: 5px;
+}
+
+.instrumentDescription h1, .statement h1,  .questionNote h1 {
+	font-size: 14pt;
+	font-weight: bold !important;
+	padding-bottom:1px;
+	margin-bottom: 1px;
+	padding-top:5px;
+	margin-top: 5px;
+}
+
+.instrumentDescription, .statement, .questionNote {
+	padding:5px;
+	margin-bottom:2em;
+	font-size: 85%;
+	width:40em;
+	text-align:justify;
+}
+
+.statement, .questionNote {
+	border:5px solid white;
+	background-color:#FEF8E8 !important;
+	margin-right: 15px;
+	margin-left: 0px;
+}
+
+.InterviewerInstruction {color:red;font-weight:bold;display:block;}
+
+ul {
+	margin: 15px;
+	padding:1px;
+}
+
+.logo {
+	background-image: ./200px-Slug-02_svg.png;
+	display: block;
+	margin-left: auto;
+    margin-right: auto 
+}
+
+.wordsub {
+	display:inline;
+}
+
+.words, .wordsub, .wordsub .value,   {
+	display:inline;
+}
+
+.sectionTitle {
+	font-weight:bold;
+	font-size:130%;
+}
+
+
+.IncludesExcludes {
+	border:5px solid white;
+	background-color:#FEF8E8 !important;
+	padding: 5px;
+	margin-right: 15px;
+	margin-left: 0px;
+	text-align:left;
+	width:40em;
+	font-size: 85%;
+}
+
+.IncludesExcludes th {
+	font-weight: bold !important;
+	font-style: italic;
+	padding-left:5px;
+	width:50%
+}
+
+.IncludesExcludes ul {
+	margin: 15px;
+	padding:1px;
+}
+
+.IncludesExcludes * {
+	margin: 1px;
+	padding:1px;
+}
+
+ul, ol, li {
+	padding-top: 2px !important;
+	padding-bottom:2px !important;
+}
+
+/* Skip statement CSS*/
+
+.skipStatement {
+	padding-left:20px;
+	font-weight:bold;
+}
+
+.skipRemark, .skipRemark * {
+	display: inline !important;
+}
+
+xf|disabled .skipStatement {
+	display: hidden !important;
+	visibility: hidden !important;
+}
+
+xf|disabled .statement {
+	display: none !important;
+	visibility: hidden !important;
+}
+</css>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<css>
+      /* CSS Based on stylesheet from: http://en.wikibooks.org/wiki/XForms/Dynamic_Labels */
+ 		@namespace xf url("http://www.w3.org/2002/xforms");
+*  {
+	font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+}
+</css>

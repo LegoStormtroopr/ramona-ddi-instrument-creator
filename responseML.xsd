@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 3 (http://www.altova.com) by ﻿PCSoft (Australian Bureau of Statistics) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="responseML" targetNamespace="responseML" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="respondent">
+		<xs:annotation>
+			<xs:documentation>The root element for containing a data structure to manage user response in complex statistical surveys. This node is embedded as a within an XForm and is generated from a DDI document. All RML documents should be generated from a DDI document and left unedited.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="populations"/>
+				<xs:element ref="instrument"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="populations">
+		<xs:annotation>
+			<xs:documentation>The populations of any given for given respondent indicate the possible populations that respondant can be a member of.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="population" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="id"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="instrument">
+		<xs:annotation>
+			<xs:documentation>The root element that describes the implicit hierarchical instrument as defined within a DDI Instrument. It contains a single child Control Constuct as defined by an Instrument definintion in DDI3.1.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ControlConstruct"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ControlConstructType">
+		<xs:annotation>
+			<xs:documentation>Abstracted control constructs able to be combined to create a hierarchical instrument. Directly related to ControlConstructType in DDI3.1</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ifType">
+		<xs:annotation>
+			<xs:documentation>ComplexType defining the structure of a If construct</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ControlConstructType">
+				<xs:sequence>
+					<xs:element name="then">
+						<xs:complexType>
+							<xs:sequence minOccurs="0" maxOccurs="unbounded">
+								<xs:element ref="ControlConstruct"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="else" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence minOccurs="0" maxOccurs="unbounded">
+								<xs:element ref="ControlConstruct"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="sequenceType">
+		<xs:annotation>
+			<xs:documentation>ComplexType defining the structure of a sequence</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ControlConstructType">
+				<xs:sequence>
+					<xs:element ref="ControlConstruct" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="responseType">
+		<xs:annotation>
+			<xs:documentation>The core element for maintaining user response to an individual question. The specific question this relates to is given by the questionConstructID which will relate to a specific QuestionConstruct in a DDI document, which will in turn link to the specific QuestionItem.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ControlConstructType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="population">
+		<xs:annotation>
+			<xs:documentation>A population can be thought of a set with discrete, all encompassing children. The membership within each populations is decided as a respondent moves throughout a form and is prone to change.
+				For example, a population could be "Persons by occupation status", with child subpopulations "Employed", "Underemployed" and "Unemployed". As a respondent moves through a form, their membership in these groups changes and it may be possible that they could be flagged as a member of all or possibly no populations. As such conditions based on population should just check for membership or non-membership for any given population.
+				Populations are derived from  DDI Universes and SubUniverses.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="subpopulation"/>
+			</xs:sequence>
+			<xs:attribute name="id" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="membershipType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(1|0|)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="response" type="responseType" substitutionGroup="ControlConstruct">
+		<xs:annotation>
+			<xs:documentation>The response for a given question - this can either be the final depth of a tree, in the case of a QuestionItem, or it can contain subresposnes if the QuestionConstruct used to create this references a MultipleQuestionItem</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="if" type="ifType" substitutionGroup="ControlConstruct">
+		<xs:annotation>
+			<xs:documentation>An if object describes possible conditional branching within a form. It should be noted that this does not dicate control within a Form, but is a way to record the possible response a user could give. Depending on the implementation of XForms used it is possible for child values in both then and else branches</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="sequence" type="sequenceType" substitutionGroup="ControlConstruct">
+		<xs:annotation>
+			<xs:documentation>A sequence is a sequence of control objects within an instrument. Sequences can contain any number of responses, sequences or control branching objects such as loops or if-then-else constructs. The id gives the exact ID of the DDI Sequence object this is based on.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ControlConstruct" type="ControlConstructType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>An abstract class containing all objects that can be called by ControlConstructReferences within a DDI Instrument. Allows for easy substitution within other elements.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="subpopulation">
+		<xs:complexType>
+			<xs:sequence minOccurs="0">
+				<xs:element ref="subpopulation" minOccurs="2" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="id" use="required"/>
+			<xs:attribute name="membership" type="membershipType" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates if a respondant is in a specfic population. Two allowed values: 1 (in population) ,0 (not in population). If this is not present an agent is not to make any assertations about a respondents membership.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
