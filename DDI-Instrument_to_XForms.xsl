@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by PCSoft (Australian Bureau of Statistics) -->
-<xsl:stylesheet version="1.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt skip" extension-element-prefixes="exslt">
-	<!--
-		Import the XSLT for turning a responseML document into the skip patterns needed for conditional questions.
-		Import string helper functions
-	-->
+<xsl:stylesheet version="2.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt msxsl skip" extension-element-prefixes="exslt">
+	<!-- Import the XSLT for turning a responseML document into the skip patterns needed for conditional questions. -->
 	<xsl:import href="./responseML_to_Skips.xsl"/>
-	<xsl:import href="./stringFunctions.xsl"/>
 	<xsl:import href="./DDI_to_ResponseML.xsl"/>
 	
-	<!--
-		We are outputing XHTML so the output method will be XML, not HTML
-	-->
+	<!-- We are outputing XHTML so the output method will be XML, not HTML -->
 	<xsl:output method="xml"/>
-	<!-- 
-		Read in the configuration file. This contains information about how the XForm is to be created and displayed. Including CSS file locations and language information.
-	-->
+
+	<!-- Simulating EXSLT for XSLT2.0 -->
+	<xsl:function name="exslt:node-set">
+		<xsl:param name="rtf"/>
+		<xsl:sequence select="$rtf"/>
+	</xsl:function> 
+	
+	<!-- Simulating EXSLT node-set for the MS XML XSLT Engine -->
+	<msxsl:script language="JScript" implements-prefix="exslt">
+	 this['node-set'] =  function (x) {
+	  return x;
+	  }
+	</msxsl:script>
+	
+	<!-- Read in the configuration file. This contains information about how the XForm is to be created and displayed. Including CSS file locations and language information. -->
 	<xsl:variable name="config" select="document('./config.xml')/config"/>
-	<xsl:variable name="theme" select="document(concat('/Ramona/themes/',$config/theme,'.xml'))/theme"/>
-	<xsl:variable name="them" select="concat('/Ramona/themes/',$config/theme,'.xml')"/>
+
+	<!-- Based on the deployer ENVironment, determine the correct path to the theme specific configuration file --> 
+	<xsl:variable name="theme_file">
+		<xsl:choose>
+			<!-- If we are deployed on an eXist-db install construct the correct path to the theme config --> 
+			<xsl:when test="$config/env = 'exist-db'">
+				<xsl:copy-of select="concat('/Ramona/themes/',$config/theme,'.xml')"/>
+			</xsl:when>
+			<!-- If we don't know the deployed environment assume the theme is in the defult distribution directory --> 
+			<xsl:otherwise>
+				<xsl:copy-of select="concat('./themes/',$config/theme,'/theme.xml')"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<!-- The concat below is a work around to pull the correct theme file. If you just try and use this:
+			<xsl:variable name="theme" select="document($theme_file)/theme"/>
+			It will fail, for some as of yet undetermined reason.
+	-->
+	<xsl:variable name="theme" select="document(concat('',$theme_file,''))/theme"/>
 	<!-- 
 		Create the instrument for the XForms Model. This is represntation of the "true XML hierarchy" of the questionnaire (as opposed to the referential hiearchy of the DDI Document
 		This is created as a global variable as it is needed in several different places for processing.
@@ -38,7 +61,7 @@
 		This is the area where the question and section numbers are generated. This is generated from the document order of responses in the instrumentModel above.
 	-->
 	<xsl:variable name="numbers">
-		<!-- xsl:for-each select="exslt:node-set($instrumentModel)//rml:response">
+		<xsl:for-each select="exslt:node-set($instrumentModel)//rml:response">
 			<xsl:element name="question">
 				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 				<xsl:value-of select="position()"/>
@@ -49,7 +72,7 @@
 				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 				<xsl:value-of select="position()"/>
 			</xsl:element>
-		</xsl:for-each -->
+		</xsl:for-each>
 	</xsl:variable>
 	<!-- 
 		This is the area where the question and section numbers are generated. This is generated from the document order of responses in the instrumentModel above.
@@ -77,6 +100,7 @@
 			<xsl:value-of select="$config/xsltformsLocation"/>" type="text/xsl"</xsl:processing-instruction>
 		<xsl:processing-instruction name="xsltforms-options">debug="no"</xsl:processing-instruction>
 		<html xmlns="http://www.w3.org/1999/xhtml">
+			<xsl:copy-of select="$theme_file"/>
 			<head>
 				<title>
 					<xsl:apply-templates select="//d:Instrument/d:InstrumentName"/>

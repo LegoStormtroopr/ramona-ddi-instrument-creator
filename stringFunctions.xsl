@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Honestly, I think this whole section can be replaced with exslt - but I need to check -->
 <xsl:stylesheet version="1.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rml="http://legostormtoopr/response">
 	<xsl:output method="xml"/>
 	<!--
