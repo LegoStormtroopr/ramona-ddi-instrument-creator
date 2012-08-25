@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<theme>
-	<themeName>Shamrock theme</themeName>
+<theme shortName="koala" xmlns="rml:RamonaConfig_v1">
+	<themeName>Koala theme</themeName>
 	<codeSchemeDisplay>full</codeSchemeDisplay>
-	<subquestion>
+	<question visible="true">
+		<after>.</after>
+	</question>
+	<subquestion visible="true">
 		<before>(</before>
 		<after>)</after>
 	</subquestion>
 	<styles>
 		<style relative="true">./Questionnaire.css</style>
 	</styles>
-	<logo>
-		<location relative="true">./200px-Koala_svg.png</location>
-		<size><w>147</w><h>147</h>
-		</size>
-	</logo>
+	<logo width="147" height="147" relative="true">./200px-Koala_svg.png</logo>
 </theme>

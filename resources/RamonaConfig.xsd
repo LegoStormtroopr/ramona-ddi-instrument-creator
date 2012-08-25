@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 3 (http://www.altova.com) by ﻿PCSoft (Australian Bureau of Statistics) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="rml:RamonaConfig_v1"
+	targetNamespace="rml:RamonaConfig_v1" elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	>
+	<xs:import namespace="http://www.w3.org/2002/xforms" schemaLocation="http://www.w3.org/MarkUp/Forms/2002/XForms-Schema.xsd"/>
+	
+	<xs:element name="config">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				The root element for the configuration file for the Ramona DDI to XForms transformation process.
+				There should only be one configuration file per instance of the XSLT Transform, that resides in the same location as the main XSLT file (DDI-Instrument_to_XForms.xsl).
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="rootURN" type="xs:anyURI">
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="language" type="xs:language" minOccurs="1" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="xsltformsLocation" type="ramonaRelativeURIType">
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="defaultMembership">
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean"></xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="themeName" type="themeshortNameType">
+					<xs:annotation>
+						<xs:documentation xml:lang="en" />
+					</xs:annotation>
+				</xs:element>
+				<xs:element name='environment' type="xs:string"/>				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="theme">
+		<xs:annotation>
+			<xs:documentation>The root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="themeName" type="xs:string">
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="codeSchemeDisplay" type="xf:appearanceType" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="question" minOccurs="0" maxOccurs="1" >
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="before" minOccurs="0" maxOccurs="1" type="xs:string"/>
+							<xs:element name="after" minOccurs="0" maxOccurs="1" type="xs:string"/>
+						</xs:sequence>
+						<xs:attribute name="visible" default="true" type="xs:boolean"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="subquestion" minOccurs="0" maxOccurs="1" >
+					<xs:annotation>
+						<xs:documentation xml:lang="en"/>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="before" minOccurs="0" maxOccurs="1" type="xs:string"/>
+							<xs:element name="after" minOccurs="0" maxOccurs="1" type="xs:string"/>
+						</xs:sequence> 
+						<xs:attribute name="visible" default="true" type="xs:boolean"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="styles" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="style" minOccurs="0" maxOccurs="unbounded" type="ramonaRelativeURIType"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="logo" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="ramonaRelativeURIType">
+								<xs:attribute name="width"/>
+								<xs:attribute name="height"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="shortName" type="themeshortNameType" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="ramonaRelativeURIType">
+		<xs:simpleContent>
+			<xs:extension base="xs:anyURI">
+				<xs:attribute name="relative" default="true"></xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="themeshortNameType" >
+		<xs:annotation>
+			<xs:documentation xml:lang="en">
+				To make sure they are compatible with filesystems and XML DataBases, theme short names are defined using the xs:IDs.
+				This will assists in ensuring that no two themes within a single system can use the same short name. 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:ID"/>
+	</xs:simpleType>
+</xs:schema>

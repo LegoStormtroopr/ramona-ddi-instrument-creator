@@ -80,15 +80,13 @@ textarea {
 }
 
 .xforms-disabled .value  {
-	visibility:block;
 	display: none !important;
 }
 
-/* This line ensures all the separate input controls appear on their own lines */
-xf|input, xf|select, xf|select1, xf|textarea {display:block; margin:5px 0; margin-left:30px;}
-
-/* Subquestion text should stay on the same line. */
-
+.xforms-disabled .subquestion {
+    display:none;
+    visibility:hidden;
+}
  
 /* Makes the labels right aligned in a 200px wide column that floats to the left of the input controls. * /
 xf|input  xf|label, xf|select  xf|label, xf|select1  xf|label, xf|textarea  xf|label {margin-right:20px; width:400px; float:left; border-bottom: 1px dotted black} */
