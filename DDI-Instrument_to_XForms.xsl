@@ -3,6 +3,7 @@
 	<!-- Import the XSLT for turning a responseML document into the skip patterns needed for conditional questions. -->
 	<xsl:import href="./responseML_to_Skips.xsl"/>
 	<xsl:import href="./DDI_to_ResponseML.xsl"/>
+	<xsl:import href="./DDIReferenceResolver.xsl"/>
 	
 	<!-- We are outputing XHTML so the output method will be XML, not HTML -->
 	<xsl:output method="xml"/>
@@ -62,7 +63,7 @@
 	<xsl:variable name="numbers">
 		<xsl:for-each select="exslt:node-set($instrumentModel)//rml:response">
 			<xsl:element name="question">
-				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+				<xsl:attribute name="id"><xsl:value-of select="@questionItemID"/></xsl:attribute>
 				<xsl:value-of select="position()"/>
 			</xsl:element>
 		</xsl:for-each>
@@ -216,12 +217,7 @@
 			</h2>
 		</xsl:if>
 		<xsl:for-each select="d:ControlConstructReference">
-			<xsl:variable name="id">
-				<xsl:value-of select="r:ID"/>
-			</xsl:variable>
-			<xsl:apply-templates select="//*[@id=$id]">
-				<xsl:with-param name="sample"/>
-			</xsl:apply-templates>
+			<xsl:apply-templates select="." mode="DDIReferenceResolver_3_1"/>
 		</xsl:for-each>
 		<xsl:comment>End of <xsl:value-of select="@id"/>
 		</xsl:comment>
@@ -256,12 +252,7 @@
 		<xsl:element name="xf:group">
 			<xsl:attribute name="bind">bindThen-<xsl:value-of select="$ifID"/></xsl:attribute>
 			<xsl:comment>Start of <xsl:value-of select="@id"/></xsl:comment>
-			<xsl:variable name="id">
-				<xsl:value-of select="r:ID"/>
-			</xsl:variable>
-			<xsl:apply-templates select="//*[@id=$id]">
-				<xsl:with-param name="sample"/>
-			</xsl:apply-templates>
+			<xsl:apply-templates select="." mode="DDIReferenceResolver_3_1"/>
 			<xsl:comment>End of <xsl:value-of select="@id"/></xsl:comment>
 		</xsl:element>
 	</xsl:template>
@@ -270,12 +261,7 @@
 		<xsl:element name="xf:group">
 			<xsl:attribute name="bind">bindElse-<xsl:value-of select="$ifID"/></xsl:attribute>
 			<xsl:comment>Start of <xsl:value-of select="@id"/></xsl:comment>
-			<xsl:variable name="id">
-				<xsl:value-of select="r:ID"/>
-			</xsl:variable>
-			<xsl:apply-templates select="//*[@id=$id]">
-				<xsl:with-param name="sample"/>
-			</xsl:apply-templates>
+			<xsl:apply-templates select="." mode="DDIReferenceResolver_3_1"/>
 			<xsl:comment>End of <xsl:value-of select="@id"/></xsl:comment>
 		</xsl:element>
 	</xsl:template>
@@ -360,87 +346,63 @@
 			<xsl:attribute name="name"><xsl:value-of select="$qcID"/></xsl:attribute>
 		</xsl:element>
 		<!-- xsl:apply-templates select="d:InterviewerInstructionReference"/  -->
-		<xsl:apply-templates select="//d:MultipleQuestionItem[@id=$question] | //d:QuestionItem[@id=$question]">
-			<xsl:with-param name="qcID">
-				<xsl:value-of select="@id"/>
-			</xsl:with-param>
-		</xsl:apply-templates>
+		<xsl:apply-templates select="d:QuestionReference" mode="DDIReferenceResolver_3_1"/>
 	</xsl:template>
 	<xsl:template name="generateQuestionNumber">
-		<xsl:param name="qcID"/>
-		<xsl:param name="subquestion"/>
+		<xsl:param name="qID"/>
 		<span class="questionNumber">
 			<xsl:choose>
-				<xsl:when test="$subquestion and $subquestion != '' and $theme/cfg:subquestion/@visible != false()">
+				<xsl:when test="$instrumentModel//rml:multipart/rml:multipart/*[@id=$qID] and $theme/cfg:subquestion/@visible != false()">
 					<xsl:value-of select="$theme/cfg:subquestion/cfg:before"/>
-					<xsl:value-of select="substring($ascii,$subquestion,1)"/>
+					<xsl:value-of select="substring($roman,$instrumentModel//*[@id=$qID]/position(),1)"/>
+					<xsl:value-of select="$theme/cfg:subquestion/cfg:after"/>			
+				</xsl:when>
+				<xsl:when test="$instrumentModel//rml:multipart/*[@id=$qID] and $theme/cfg:subquestion/@visible != false()">
+					<xsl:value-of select="$theme/cfg:subquestion/cfg:before"/>
+					<xsl:value-of select="substring($ascii,$instrumentModel//*[@id=$qID]/position(),1)"/>
 					<xsl:value-of select="$theme/cfg:subquestion/cfg:after"/>
 				</xsl:when>
-				<xsl:when test="$theme/cfg:question/@visible != false() and $subquestion = ''">
+				<xsl:when test="$theme/cfg:question/@visible != false()">
 					<xsl:value-of select="$theme/cfg:question/cfg:before"/>
-					<xsl:value-of select="exslt:node-set($numbers)/question[@id=$qcID]"/>
+					<xsl:value-of select="exslt:node-set($numbers)/question[@id=$qID]"/>
 					<xsl:value-of select="$theme/cfg:question/cfg:after"/>
 				</xsl:when>
-				<xsl:otherwise/>
 			</xsl:choose>
 		</span>	
 	</xsl:template>
 	<xsl:template match="d:MultipleQuestionItem">
-		<xsl:param name="qcID"/>
-		<xsl:param name="subquestion"/>
+		<xsl:variable name="id">
+			<xsl:value-of select="@id"/>
+		</xsl:variable>
 		<xsl:call-template name="generateQuestionNumber">
-			<xsl:with-param name="qcID">
-				<xsl:value-of select="$qcID"/>
-			</xsl:with-param>
-			<xsl:with-param name="subquestion">
-				<xsl:value-of select="$subquestion"/>
-			</xsl:with-param>
+			<xsl:with-param name="qID" select="@id"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="d:QuestionText"/>
 		<div class="subquestion">
-			<xsl:for-each select="d:SubQuestions/d:MultipleQuestionItem | d:SubQuestions/d:QuestionItem">
-				<xsl:apply-templates select=".">
-					<xsl:with-param name="qcID">
-						<xsl:value-of select="@id"/>
-					</xsl:with-param>
-					<xsl:with-param name="subquestion">
-						<xsl:value-of select="position()"/>
-					</xsl:with-param>
-				</xsl:apply-templates>
-			</xsl:for-each>
+			<xsl:apply-templates select="d:SubQuestions/d:MultipleQuestionItem | d:SubQuestions/d:QuestionItem"/>			
 		</div>
 	</xsl:template>
 	<xsl:template match="d:QuestionItem">
-		<xsl:param name="qcID"/>
-		<xsl:param name="subquestion"/>
 		<xsl:variable name="id">
 			<xsl:value-of select="@id"/>
 		</xsl:variable>
 		<xsl:comment>Start of question <xsl:value-of select="@id"/>
 		</xsl:comment>
-		<xsl:element name="span">
-			<xsl:choose>
-				<xsl:when test="$subquestion and $subquestion != ''">
-					<xsl:attribute name="class">subquestion</xsl:attribute>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:attribute name="class">question</xsl:attribute>
-				</xsl:otherwise>
-			</xsl:choose>
-			<xsl:call-template name="generateQuestionNumber">
-				<xsl:with-param name="qcID">
-					<xsl:value-of select="$qcID"/>
-				</xsl:with-param>
-				<xsl:with-param name="subquestion">
-					<xsl:value-of select="$subquestion"/>
-				</xsl:with-param>
-			</xsl:call-template>
-			<xsl:apply-templates select="./d:NumericDomain | ./d:CodeDomain | ./d:TextDomain | ./d:DateTimeDomain | ./d:StructuredMixedResponseDomain | ./d:CategoryDomain">
-				<xsl:with-param name="qcID">
-					<xsl:value-of select="$qcID"/>
-				</xsl:with-param>
-			</xsl:apply-templates>
-		</xsl:element>
+		<xsl:call-template name="generateQuestionNumber">
+			<xsl:with-param name="qID" select="@id"/>				
+		</xsl:call-template>
+		<xsl:apply-templates select="./d:NumericDomain | ./d:CodeDomain | ./d:TextDomain | ./d:DateTimeDomain | ./d:StructuredMixedResponseDomain | ./d:CategoryDomain">
+			<xsl:with-param name="qcID">
+				<xsl:choose>
+					<xsl:when test="local-name(parent::node())='SubQuestions'">
+						<xsl:value-of select="$id"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$instrumentModel//*[@questionItemID=$id]/@id"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:with-param>
+		</xsl:apply-templates>
 		<xsl:comment>End of question <xsl:value-of select="@id"/>
 		</xsl:comment>
 	</xsl:template>
