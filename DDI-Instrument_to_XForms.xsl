@@ -1,24 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by PCSoft (Australian Bureau of Statistics) -->
-<xsl:stylesheet version="1.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt skip" extension-element-prefixes="exslt">
-	<!--
-		Import the XSLT for turning a responseML document into the skip patterns needed for conditional questions.
-		Import string helper functions
-	-->
+<xsl:stylesheet version="2.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips" xmlns:cfg="rml:RamonaConfig_v1" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt msxsl skip cfg" extension-element-prefixes="exslt">
+	<!-- Import the XSLT for turning a responseML document into the skip patterns needed for conditional questions. -->
 	<xsl:import href="./responseML_to_Skips.xsl"/>
-	<xsl:import href="./stringFunctions.xsl"/>
 	<xsl:import href="./DDI_to_ResponseML.xsl"/>
 	
-	<!--
-		We are outputing XHTML so the output method will be XML, not HTML
-	-->
+	<!-- We are outputing XHTML so the output method will be XML, not HTML -->
 	<xsl:output method="xml"/>
-	<!-- 
-		Read in the configuration file. This contains information about how the XForm is to be created and displayed. Including CSS file locations and language information.
+
+	<!-- Simulating EXSLT for XSLT2.0 -->
+	<xsl:function name="exslt:node-set">
+		<xsl:param name="rtf"/>
+		<xsl:sequence select="$rtf"/>
+	</xsl:function> 
+	
+	<!-- Simulating EXSLT node-set for the MS XML XSLT Engine -->
+	<msxsl:script language="JScript" implements-prefix="exslt">
+	 this['node-set'] =  function (x) {
+	  return x;
+	  }
+	</msxsl:script>
+	
+	<!-- Read in the configuration file. This contains information about how the XForm is to be created and displayed. Including CSS file locations and language information. -->
+	<xsl:variable name="config" select="document('./config.xml')/cfg:config"/>
+
+	<!-- Based on the deployer ENVironment, determine the correct path to the theme specific configuration file --> 
+	<xsl:variable name="theme_file">
+		<xsl:choose>
+			<!-- If we are deployed on an eXist-db install construct the correct path to the theme config --> 
+			<xsl:when test="$config/cfg:environment = 'exist-db'">
+				<xsl:copy-of select="concat('/Ramona/themes/',$config/cfg:themeName,'.xml')"/>
+			</xsl:when>
+			<!-- If we don't know the deployed environment assume the theme is in the defult distribution directory --> 
+			<xsl:otherwise>
+				<xsl:copy-of select="concat('./themes/',$config/cfg:themeName,'/theme.xml')"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<!-- The concat below is a work around to pull the correct theme file. If you just try and use this:
+			<xsl:variable name="theme" select="document($theme_file)/theme"/>
+			It will fail, for some as of yet undetermined reason.
 	-->
-	<xsl:variable name="config" select="document('./config.xml')/config"/>
-	<xsl:variable name="theme" select="document(concat('/Ramona/themes/',$config/theme,'.xml'))/theme"/>
-	<xsl:variable name="them" select="concat('/Ramona/themes/',$config/theme,'.xml')"/>
+	<xsl:variable name="theme" select="document(concat('',$theme_file,''))/cfg:theme"/>
 	<!-- 
 		Create the instrument for the XForms Model. This is represntation of the "true XML hierarchy" of the questionnaire (as opposed to the referential hiearchy of the DDI Document
 		This is created as a global variable as it is needed in several different places for processing.
@@ -38,7 +60,7 @@
 		This is the area where the question and section numbers are generated. This is generated from the document order of responses in the instrumentModel above.
 	-->
 	<xsl:variable name="numbers">
-		<!-- xsl:for-each select="exslt:node-set($instrumentModel)//rml:response">
+		<xsl:for-each select="exslt:node-set($instrumentModel)//rml:response">
 			<xsl:element name="question">
 				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 				<xsl:value-of select="position()"/>
@@ -49,7 +71,7 @@
 				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 				<xsl:value-of select="position()"/>
 			</xsl:element>
-		</xsl:for-each -->
+		</xsl:for-each>
 	</xsl:variable>
 	<!-- 
 		This is the area where the question and section numbers are generated. This is generated from the document order of responses in the instrumentModel above.
@@ -71,10 +93,10 @@
 		In future, this may search for ALL instruments and create one XForms for each instrument or alternatively, accept a list of instrument ids in config.xml and only process those.
 	-->
 	<xsl:template match="/">
-		<xsl:processing-instruction name="xml-stylesheet">href="<xsl:if test="$config/xsltformsLocation/@relative=true()">
-				<xsl:value-of select="$config/rootDir"/>
+		<xsl:processing-instruction name="xml-stylesheet">href="<xsl:if test="$config/cfg:xsltformsLocation/@relative=true()">
+				<xsl:value-of select="$config/cfg:rootURN"/>
 			</xsl:if>
-			<xsl:value-of select="$config/xsltformsLocation"/>" type="text/xsl"</xsl:processing-instruction>
+			<xsl:value-of select="$config/cfg:xsltformsLocation"/>" type="text/xsl"</xsl:processing-instruction>
 		<xsl:processing-instruction name="xsltforms-options">debug="no"</xsl:processing-instruction>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
@@ -82,13 +104,13 @@
 					<xsl:apply-templates select="//d:Instrument/d:InstrumentName"/>
 				</title>
 				<!-- Link to the CSS for rendering the form -->
-				<xsl:for-each select="$theme/styles/style">
+				<xsl:for-each select="$theme/cfg:styles/cfg:style">
 					<xsl:element name="link">
 						<xsl:attribute name="rel">stylesheet</xsl:attribute>
 						<xsl:attribute name="type">text/css</xsl:attribute>
 						<xsl:attribute name="href">
 							<xsl:if test="./@relative=true()">
-								<xsl:value-of select="$config/rootDir"/>/themes/<xsl:value-of select="$config/theme"/>
+								<xsl:value-of select="$config/cfg:rootURN"/>/themes/<xsl:value-of select="$config/cfg:themeName"/>
 							</xsl:if>/<xsl:value-of select="."/>
 						</xsl:attribute>
 					</xsl:element>
@@ -119,12 +141,12 @@
 		<div id="majorsections">
 			<xsl:element name="img">
 				<xsl:attribute name="src">
-					<xsl:if test="$theme/logo/location/@relative=true()">
-							<xsl:value-of select="$config/rootDir"/>/themes/<xsl:value-of select="$config/theme"/>
-					</xsl:if>/<xsl:value-of select="$theme/logo/location"/>
+					<xsl:if test="$theme/cfg:logo/@relative=true()">
+							<xsl:value-of select="$config/cfg:rootURN"/>/themes/<xsl:value-of select="$config/cfg:themeName"/>
+					</xsl:if>/<xsl:value-of select="$theme/cfg:logo"/>
 				</xsl:attribute>
-				<xsl:attribute name="width"><xsl:value-of select="$theme/logo/size/w"/></xsl:attribute>
-				<xsl:attribute name="height"><xsl:value-of select="$theme/logo/size/h"/></xsl:attribute>
+				<xsl:attribute name="width"><xsl:value-of select="$theme/cfg:logo/@width"/></xsl:attribute>
+				<xsl:attribute name="height"><xsl:value-of select="$theme/cfg:logo/@height"/></xsl:attribute>
 				<xsl:attribute name="class">logo</xsl:attribute>
 			</xsl:element>
 			<h2>Major Sections</h2>
@@ -232,34 +254,30 @@
 	<xsl:template match="d:ThenConstructReference">
 		<xsl:param name="ifID"/>
 		<xsl:element name="xf:group">
-		<xsl:attribute name="bind">bindThen-<xsl:value-of select="$ifID"/></xsl:attribute>
-		<xsl:comment>Start of <xsl:value-of select="@id"/>
-		</xsl:comment>
-		<xsl:variable name="id">
-			<xsl:value-of select="r:ID"/>
-		</xsl:variable>
-		<xsl:apply-templates select="//*[@id=$id]">
-			<xsl:with-param name="sample"/>
-		</xsl:apply-templates>
-		<xsl:comment>End of <xsl:value-of select="@id"/>
-		</xsl:comment>
+			<xsl:attribute name="bind">bindThen-<xsl:value-of select="$ifID"/></xsl:attribute>
+			<xsl:comment>Start of <xsl:value-of select="@id"/></xsl:comment>
+			<xsl:variable name="id">
+				<xsl:value-of select="r:ID"/>
+			</xsl:variable>
+			<xsl:apply-templates select="//*[@id=$id]">
+				<xsl:with-param name="sample"/>
+			</xsl:apply-templates>
+			<xsl:comment>End of <xsl:value-of select="@id"/></xsl:comment>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="d:ElseConstructReference">
 		<xsl:param name="ifID"/>
-		<!-- xsl:element name="xf:group" -->
-		<!-- xsl:attribute name="bind">bindElse-<xsl:value-of select="$ifID"/></xsl:attribute -->
-		<xsl:comment>Start of <xsl:value-of select="@id"/>
-		</xsl:comment>
-		<xsl:variable name="id">
-			<xsl:value-of select="r:ID"/>
-		</xsl:variable>
-		<xsl:apply-templates select="//*[@id=$id]">
-			<xsl:with-param name="sample"/>
-		</xsl:apply-templates>
-		<xsl:comment>End of <xsl:value-of select="@id"/>
-		</xsl:comment>
-		<!-- /xsl:element -->
+		<xsl:element name="xf:group">
+			<xsl:attribute name="bind">bindElse-<xsl:value-of select="$ifID"/></xsl:attribute>
+			<xsl:comment>Start of <xsl:value-of select="@id"/></xsl:comment>
+			<xsl:variable name="id">
+				<xsl:value-of select="r:ID"/>
+			</xsl:variable>
+			<xsl:apply-templates select="//*[@id=$id]">
+				<xsl:with-param name="sample"/>
+			</xsl:apply-templates>
+			<xsl:comment>End of <xsl:value-of select="@id"/></xsl:comment>
+		</xsl:element>
 	</xsl:template>
 	<!--
 		Processing instructions for text like objects in DDI.
@@ -271,7 +289,7 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="r:Description">
-		<xsl:if test="@xml:lang=$config/language or (not(@xml:lang) and $config/language='')">
+		<xsl:if test="ancestor-or-self::*[attribute::xml:lang][1]/@xml:lang=$config/cfg:language">
 			<xsl:apply-templates select="* | text()"/>
 		</xsl:if>
 	</xsl:template>
@@ -287,19 +305,19 @@
 		<xsl:apply-templates select="//d:Instruction[@id=$instID]"/>
 	</xsl:template>
 	<xsl:template match="d:InstrumentName | r:Label">
-		<xsl:if test="@xml:lang=$config/language or (not(@xml:lang) and $config/language='')">
+		<xsl:if test="ancestor-or-self::*[attribute::xml:lang][1]/@xml:lang=$config/cfg:language">
 			<xsl:value-of select="."/>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="d:InstructionText | d:DisplayText">
-		<xsl:if test="@xml:lang=$config/language or (not(@xml:lang) and $config/language='')">
+		<xsl:if test="ancestor-or-self::*[attribute::xml:lang][1]/@xml:lang=$config/cfg:language">
 			<span>
 				<xsl:apply-templates select="*"/>
 			</span>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="d:QuestionText">
-		<xsl:if test="@xml:lang=$config/language or (not(@xml:lang) and $config/language='')">
+		<xsl:if test="ancestor-or-self::*[attribute::xml:lang][1]/@xml:lang=$config/cfg:language">
 			<span class="questionText">
 				<xsl:apply-templates select="*"/>
 			</span>
@@ -348,23 +366,36 @@
 			</xsl:with-param>
 		</xsl:apply-templates>
 	</xsl:template>
-	<xsl:template match="d:MultipleQuestionItem">
+	<xsl:template name="generateQuestionNumber">
 		<xsl:param name="qcID"/>
 		<xsl:param name="subquestion"/>
 		<span class="questionNumber">
 			<xsl:choose>
-				<xsl:when test="$subquestion and $subquestion != ''">
-					<xsl:value-of select="$theme/subquestion/before"/>
+				<xsl:when test="$subquestion and $subquestion != '' and $theme/cfg:subquestion/@visible != false()">
+					<xsl:value-of select="$theme/cfg:subquestion/cfg:before"/>
 					<xsl:value-of select="substring($ascii,$subquestion,1)"/>
-					<xsl:value-of select="$theme/subquestion/after"/>
+					<xsl:value-of select="$theme/cfg:subquestion/cfg:after"/>
 				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="$theme/question/before"/>
+				<xsl:when test="$theme/cfg:question/@visible != false() and $subquestion = ''">
+					<xsl:value-of select="$theme/cfg:question/cfg:before"/>
 					<xsl:value-of select="exslt:node-set($numbers)/question[@id=$qcID]"/>
-					<xsl:value-of select="$theme/question/after"/>
-				</xsl:otherwise>
+					<xsl:value-of select="$theme/cfg:question/cfg:after"/>
+				</xsl:when>
+				<xsl:otherwise/>
 			</xsl:choose>
-		</span>
+		</span>	
+	</xsl:template>
+	<xsl:template match="d:MultipleQuestionItem">
+		<xsl:param name="qcID"/>
+		<xsl:param name="subquestion"/>
+		<xsl:call-template name="generateQuestionNumber">
+			<xsl:with-param name="qcID">
+				<xsl:value-of select="$qcID"/>
+			</xsl:with-param>
+			<xsl:with-param name="subquestion">
+				<xsl:value-of select="$subquestion"/>
+			</xsl:with-param>
+		</xsl:call-template>
 		<xsl:apply-templates select="d:QuestionText"/>
 		<div class="subquestion">
 			<xsl:for-each select="d:SubQuestions/d:MultipleQuestionItem | d:SubQuestions/d:QuestionItem">
@@ -396,20 +427,14 @@
 					<xsl:attribute name="class">question</xsl:attribute>
 				</xsl:otherwise>
 			</xsl:choose>
-			<span class="questionNumber">
-				<xsl:choose>
-					<xsl:when test="$subquestion and $subquestion != ''">
-						<xsl:value-of select="$theme/subquestion/before"/>
-						<xsl:value-of select="substring($ascii,$subquestion,1)"/>
-						<xsl:value-of select="$theme/subquestion/after"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="$theme/question/before"/>
-						<xsl:value-of select="exslt:node-set($numbers)/question[@id=$qcID]"/>
-						<xsl:value-of select="$theme/question/after"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</span>
+			<xsl:call-template name="generateQuestionNumber">
+				<xsl:with-param name="qcID">
+					<xsl:value-of select="$qcID"/>
+				</xsl:with-param>
+				<xsl:with-param name="subquestion">
+					<xsl:value-of select="$subquestion"/>
+				</xsl:with-param>
+			</xsl:call-template>
 			<xsl:apply-templates select="./d:NumericDomain | ./d:CodeDomain | ./d:TextDomain | ./d:DateTimeDomain | ./d:StructuredMixedResponseDomain | ./d:CategoryDomain">
 				<xsl:with-param name="qcID">
 					<xsl:value-of select="$qcID"/>
@@ -486,7 +511,7 @@
 		</xsl:variable>
 		<xsl:element name="xf:select1">
 			<xsl:attribute name="bind">bindQuestion-<xsl:value-of select="$qcID"/></xsl:attribute>
-			<xsl:attribute name="appearance"><xsl:value-of select="$theme/codeSchemeDisplay"/></xsl:attribute>
+			<xsl:attribute name="appearance"><xsl:value-of select="$theme/cfg:codeSchemeDisplay"/></xsl:attribute>
 			<xf:label>
 				<xsl:apply-templates select="../d:QuestionText"/>
 			</xf:label>

@@ -69,7 +69,7 @@
 	<xsl:template match="d:IfCondition">
 		<xsl:choose>
 			<!-- If we can use an orderedSQRConditional we will, as this allows for more automatic processing and skips in questions -->
-			<xsl:when test="./r:Code[@programmingLanguage='orderedSQRConditional']">
+			<xsl:when test="./r:Code[@programmingLanguage='orderedSQRConditionaldfjlkgjlkjlkjlkg']">
 				<rml:osc>
 					<xsl:variable name="SQRvalues">
 						<xsl:call-template name="tokenize">

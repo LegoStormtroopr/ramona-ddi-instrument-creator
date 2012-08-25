@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="rml:RamonaConfig_v1">
+	<rootURN>./</rootURN>
+	<language>en</language>
+	<xsltformsLocation relative="true">./xsltforms-beta2/xsltforms/xsltforms.xsl</xsltformsLocation>
+	<defaultMembership>1</defaultMembership>
+	<themeName>koala</themeName>
+	<environment>local</environment>
+</config>

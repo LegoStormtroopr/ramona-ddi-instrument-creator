@@ -68,9 +68,6 @@ textarea {
 	display: none !important;
 }
 
-/* This line ensures all the separate input controls appear on their own lines */
-xf|input, xf|select, xf|select1, xf|textarea {display:block; margin:5px 0; margin-left:30px;}
-
 /* Subquestion text should stay on the same line. */
 
  
