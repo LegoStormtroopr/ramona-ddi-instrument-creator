@@ -4,6 +4,7 @@
 	<xsl:import href="./responseML_to_Skips.xsl"/>
 	<xsl:import href="./DDI_to_ResponseML.xsl"/>
 	<xsl:import href="./DDIReferenceResolver.xsl"/>
+	<xsl:import href="./configTransformations.xsl"/>
 	
 	<!-- We are outputing XHTML so the output method will be XML, not HTML -->
 	<xsl:output method="xml"/>
@@ -79,11 +80,11 @@
 		This code is contained within the ResponseML_to_skips.xsl file.
 	-->
 	<xsl:variable name="skips">
-		<!-- xsl:call-template name="makeSkips">
+		<xsl:call-template name="makeSkips">
 			<xsl:with-param name="doc">
 				<xsl:copy-of select="$instrumentModel"/>
 			</xsl:with-param>
-		</xsl:call-template -->
+		</xsl:call-template>
 	</xsl:variable>
 	<!-- 
 		==============================
@@ -93,43 +94,14 @@
 		This matches on the root element of the DDI Document so everything is done once. At present it searches for the instrument with a software tag of "XForms-Ramona"
 		In future, this may search for ALL instruments and create one XForms for each instrument or alternatively, accept a list of instrument ids in config.xml and only process those.
 	-->
+
 	<xsl:template match="/">
 		<xsl:processing-instruction name="xml-stylesheet">href="<xsl:if test="$config/cfg:xsltformsLocation/@relative=true()">
 				<xsl:value-of select="$config/cfg:rootURN"/>
 			</xsl:if>
 			<xsl:value-of select="$config/cfg:xsltformsLocation"/>" type="text/xsl"</xsl:processing-instruction>
 		<xsl:processing-instruction name="xsltforms-options">debug="no"</xsl:processing-instruction>
-		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
-				<title>
-					<xsl:apply-templates select="//d:Instrument/d:InstrumentName"/>
-				</title>
-				<!-- Link to the CSS for rendering the form -->
-				<xsl:for-each select="$theme/cfg:styles/cfg:style">
-					<xsl:element name="link">
-						<xsl:attribute name="rel">stylesheet</xsl:attribute>
-						<xsl:attribute name="type">text/css</xsl:attribute>
-						<xsl:attribute name="href">
-							<xsl:if test="./@relative=true()">
-								<xsl:value-of select="$config/cfg:rootURN"/>/themes/<xsl:value-of select="$config/cfg:themeName"/>
-							</xsl:if>/<xsl:value-of select="."/>
-						</xsl:attribute>
-					</xsl:element>
-				</xsl:for-each>
-				<!-- Xforms Data model and bindings, including the ResponseML data instance. -->
-				<xf:model>
-					<xf:instance>
-						<xsl:call-template name="dataModelBuilder"/>						
-					</xf:instance>
-					<xsl:call-template name="makeBindings"/>
-					<xf:submission id="saveLocally" method="put" action="file://C:/temp/saved_survey.xml"/>
-					<xf:submission id="saveRemotely" method="post" action="http://127.0.0.1:8080/submit"/>
-				</xf:model>
-			</head>
-			<body>
-				<xsl:apply-templates select="//d:Instrument"/>
-			</body>
-		</html>
+		<xsl:apply-templates select="//d:Instrument"/>
 	</xsl:template>
 	<!-- 
 		This template matches for instruments and creates the boiler plate for the final XHTML+XForms Document.
@@ -139,49 +111,60 @@
 		Prints the instrument name and description, and processes the single, valid ControlConstruct contained within the DDI Instrument.
 	-->
 	<xsl:template match="d:Instrument">
-		<div id="majorsections">
-			<xsl:element name="img">
-				<xsl:attribute name="src">
-					<xsl:if test="$theme/cfg:logo/@relative=true()">
-							<xsl:value-of select="$config/cfg:rootURN"/>/themes/<xsl:value-of select="$config/cfg:themeName"/>
-					</xsl:if>/<xsl:value-of select="$theme/cfg:logo"/>
-				</xsl:attribute>
-				<xsl:attribute name="width"><xsl:value-of select="$theme/cfg:logo/@width"/></xsl:attribute>
-				<xsl:attribute name="height"><xsl:value-of select="$theme/cfg:logo/@height"/></xsl:attribute>
-				<xsl:attribute name="class">logo</xsl:attribute>
-			</xsl:element>
-			<h2>Major Sections</h2>
-			<ol>
-				<xsl:for-each select="//d:Sequence">
-					<xsl:if test="./r:Label">
-						<li>
-							<xsl:element name="a">
-								<xsl:attribute name="href">#<xsl:value-of select="@id"/></xsl:attribute>
-								<xsl:apply-templates select="./r:Label" mode="sidebar"/>
-							</xsl:element>
-						</li>
-					</xsl:if>
-				</xsl:for-each>
-			</ol>
-		</div>
-		<div id="survey">
-			<xsl:variable name="construct">
-				<xsl:value-of select="d:ControlConstructReference/r:ID"/>
-			</xsl:variable>
-			<h1>
-				<xsl:apply-templates select="d:InstrumentName"/>
-			</h1>
-			<div class="instrumentDescription">
-				<xsl:apply-templates select="r:Description"/>
-			</div>
-			<xsl:apply-templates select="//d:Sequence[@id=$construct]" mode="master"/>
-			<xf:submit submission="saveLocally">
-				<xf:label>Save data locally</xf:label>
-			</xf:submit>
-			<xf:submit submission="saveRemotely">
-				<xf:label>Submit</xf:label>
-			</xf:submit>
-		</div>
+		<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+			<head>
+				<title>
+					<xsl:apply-templates select="d:InstrumentName"/>
+				</title>
+				<!-- Link to the CSS for rendering the form -->
+				<xsl:apply-templates select="$theme/cfg:styles/*"/>
+				<!-- Xforms Data model and bindings, including the ResponseML data instance. -->
+				<xf:model>
+					<xf:instance>
+						<xsl:call-template name="dataModelBuilder"/>						
+					</xf:instance>
+					<xsl:call-template name="makeBindings"/>
+					<xf:submission id="saveLocally" method="put" action="file://C:/temp/saved_survey.xml"/>
+					<xf:submission id="saveRemotely" method="post" action="{$config/cfg:serverSubmitURI}"/>
+				</xf:model>
+			</head>
+			<body>
+				<div id="majorsections">
+					<xsl:apply-templates select="$theme/cfg:logo"/>
+					<h2>Major Sections</h2>
+					<ol>
+						<xsl:for-each select="//d:Sequence">
+							<xsl:if test="./r:Label">
+								<li>
+									<xsl:element name="a">
+										<xsl:attribute name="href">#<xsl:value-of select="@id"/></xsl:attribute>
+										<xsl:apply-templates select="./r:Label" mode="sidebar"/>
+									</xsl:element>
+								</li>
+							</xsl:if>
+						</xsl:for-each>
+					</ol>
+				</div>
+				<div id="survey">
+					<xsl:variable name="construct">
+						<xsl:value-of select="d:ControlConstructReference/r:ID"/>
+					</xsl:variable>
+					<h1>
+						<xsl:apply-templates select="d:InstrumentName"/>
+					</h1>
+					<div class="instrumentDescription">
+						<xsl:apply-templates select="r:Description"/>
+					</div>
+					<xsl:apply-templates select="//d:Sequence[@id=$construct]" mode="master"/>
+					<xf:submit submission="saveLocally">
+						<xf:label>Save data locally</xf:label>
+					</xf:submit>
+					<xf:submit submission="saveRemotely">
+						<xf:label>Submit</xf:label>
+					</xf:submit>
+				</div>
+			</body>
+		</html>
 	</xsl:template>
 	<!--
 		Process the main sequence for the Instrument. In future this will include section numbering, but for now its just like the regular sequence template
@@ -190,15 +173,7 @@
 		<div class="mainForm">
 			<xsl:comment>Start of <xsl:value-of select="@id"/>
 			</xsl:comment>
-			<xsl:for-each select="d:ControlConstructReference">
-				<xsl:variable name="id">
-					<xsl:value-of select="r:ID"/>
-				</xsl:variable>
-				<!-- h2>Part <xsl:value-of select="$numbers/question[@id=$id]"/>
-					<xsl:value-of select="//*[@id=$id]/r:Label"/>
-				</h2 -->
-				<xsl:apply-templates select="//*[@id=$id]"/>
-			</xsl:for-each>
+			<xsl:apply-templates select="d:ControlConstructReference" mode="DDIReferenceResolver_3_1"/>
 			<xsl:comment>End of <xsl:value-of select="@id"/>
 			</xsl:comment>
 		</div>
@@ -216,9 +191,7 @@
 				</a>
 			</h2>
 		</xsl:if>
-		<xsl:for-each select="d:ControlConstructReference">
-			<xsl:apply-templates select="." mode="DDIReferenceResolver_3_1"/>
-		</xsl:for-each>
+		<xsl:apply-templates select="d:ControlConstructReference" mode="DDIReferenceResolver_3_1"/>
 		<xsl:comment>End of <xsl:value-of select="@id"/>
 		</xsl:comment>
 		<!-- /xsl:element -->
@@ -379,7 +352,7 @@
 		</xsl:call-template>
 		<xsl:apply-templates select="d:QuestionText"/>
 		<div class="subquestion">
-			<xsl:apply-templates select="d:SubQuestions/d:MultipleQuestionItem | d:SubQuestions/d:QuestionItem"/>			
+			<xsl:apply-templates select="d:SubQuestions/*"/>			
 		</div>
 	</xsl:template>
 	<xsl:template match="d:QuestionItem">

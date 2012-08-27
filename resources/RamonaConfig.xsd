@@ -21,6 +21,11 @@
 						<xs:documentation xml:lang="en"/>
 					</xs:annotation>
 				</xs:element>
+				<xs:element name="serverSubmitURI" type="ramonaRelativeURIType">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">The location where the XForms instance will be submitted to.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 				<xs:element name="language" type="xs:language" minOccurs="1" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation xml:lang="en">A repeatable element listing all the valid languages to output in the final form. Note that if multiple language elements are entered in the configuration file, multiple labels will be output, and all languages will be visible simultaneously in the final form. The value of this field should be a valid XML lang value as defined in the W3C XML specification – ideally it should also be the value of a language present in the questionnaire to make sure some text is visible.</xs:documentation>

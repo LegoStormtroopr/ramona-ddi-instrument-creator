@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns="rml:RamonaConfig_v1">
 	<rootURN>./</rootURN>
+	<serverSubmitURI>http://127.0.0.1:8080/submit</serverSubmitURI>
 	<language>en</language>
 	<xsltformsLocation relative="true">./xsltforms-beta2/xsltforms/xsltforms.xsl</xsltformsLocation>
 	<defaultMembership>1</defaultMembership>
