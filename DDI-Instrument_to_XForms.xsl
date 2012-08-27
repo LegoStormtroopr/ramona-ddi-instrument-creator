@@ -24,14 +24,14 @@
 	<!-- Read in the configuration file. This contains information about how the XForm is to be created and displayed. Including CSS file locations and language information. -->
 	<xsl:variable name="config" select="document('./config.xml')/cfg:config"/>
 
-	<!-- Based on the deployer ENVironment, determine the correct path to the theme specific configuration file --> 
+	<!-- Based on the deployer Environment, determine the correct path to the theme specific configuration file --> 
 	<xsl:variable name="theme_file">
 		<xsl:choose>
 			<!-- If we are deployed on an eXist-db install construct the correct path to the theme config --> 
 			<xsl:when test="$config/cfg:environment = 'exist-db'">
 				<xsl:copy-of select="concat('/Ramona/themes/',$config/cfg:themeName,'.xml')"/>
 			</xsl:when>
-			<!-- If we don't know the deployed environment assume the theme is in the defult distribution directory --> 
+			<!-- If we don't know the deployed environment assume the theme is in the default distribution directory --> 
 			<xsl:otherwise>
 				<xsl:copy-of select="concat('./themes/',$config/cfg:themeName,'/theme.xml')"/>
 			</xsl:otherwise>

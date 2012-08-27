@@ -23,25 +23,46 @@
 				</xs:element>
 				<xs:element name="language" type="xs:language" minOccurs="1" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation xml:lang="en"/>
+						<xs:documentation xml:lang="en">A repeatable element listing all the valid languages to output in the final form. Note that if multiple language elements are entered in the configuration file, multiple labels will be output, and all languages will be visible simultaneously in the final form. The value of this field should be a valid XML lang value as defined in the W3C XML specification – ideally it should also be the value of a language present in the questionnaire to make sure some text is visible.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="xsltformsLocation" type="ramonaRelativeURIType">
 					<xs:annotation>
-						<xs:documentation xml:lang="en"/>
+						<xs:documentation xml:lang="en">The location of the XSLTForms XSLT transform necessary for rendering an XForm in a web browser if an XForms server-side transform is not used.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="defaultMembership">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">At this stage this option is ignored, but will support setting the defulat mebership of respondents in subpopulations to have specific branches shown.</xs:documentation>
+					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:boolean"></xs:restriction>
 					</xs:simpleType>
 				</xs:element>
 				<xs:element name="themeName" type="themeshortNameType">
 					<xs:annotation>
-						<xs:documentation xml:lang="en" />
+						<xs:documentation xml:lang="en">The short name of the theme to invoke for additional options. This should be the name of a theme uploaded to an appropriate XML database/server or the name of a sub-directory under the themes directory.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name='environment' type="xs:string"/>				
+				<xs:element name='environment'>
+					<xs:annotation>
+						<xs:documentation xml:lang="en">This option rewrites some URIs based on the deployed environment of the transformation.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="local">
+								<xs:annotation>
+									<xs:documentation xml:lang="en">This option should be set when the transformation is taking place on a standard filesystem.</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+							<xs:enumeration value="existdb">
+								<xs:annotation>
+									<xs:documentation xml:lang="en">This option should be set when the transformation has been deployed to an eXist-DB server.</xs:documentation>
+								</xs:annotation>
+							</xs:enumeration>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>				
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -54,17 +75,18 @@
 			<xs:sequence>
 				<xs:element name="themeName" type="xs:string">
 					<xs:annotation>
-						<xs:documentation xml:lang="en"/>
+						<xs:documentation xml:lang="en">The name of the theme, for human readable purposes.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="codeSchemeDisplay" type="xf:appearanceType" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
-						<xs:documentation xml:lang="en"/>
+						<xs:documentation xml:lang="en">An option for selecting which type of XForms select type all DDI CodeScheme's will be presented during a given transform.
+							This must be one of the valid options for the @appearance attribute of an XForms &lt;select1&gt; element – (ie. full, minimal, compact).</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="question" minOccurs="0" maxOccurs="1" >
 					<xs:annotation>
-						<xs:documentation xml:lang="en"/>
+						<xs:documentation xml:lang="en">A configuration option for adding styling text around questions numbers. For example, with a before value of ‘[‘ and an after value of ‘.)’ would look like; ‘[1.)’, ‘[2.)’, etc…</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
@@ -76,7 +98,7 @@
 				</xs:element>
 				<xs:element name="subquestion" minOccurs="0" maxOccurs="1" >
 					<xs:annotation>
-						<xs:documentation xml:lang="en"/>
+						<xs:documentation xml:lang="en">A configuration option for adding styling text around sub-questions letters or roman numerals. For example, with a before value of ‘[‘ and an after value of ‘.)’ would look like; ‘[a.)’, ‘[b.)’, [iv.)’, etc…</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
@@ -87,13 +109,23 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="styles" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">Contains sub-elements needed to create CSS Stylesheets link for styling the final web form. For each contained style element, a CSS link will be made in the final XForm instance.</xs:documentation>
+					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="style" minOccurs="0" maxOccurs="unbounded" type="ramonaRelativeURIType"/>
+							<xs:element name="style" minOccurs="0" maxOccurs="unbounded" type="ramonaRelativeURIType">
+								<xs:annotation>
+									<xs:documentation xml:lang="en">The URI for a stylesheet to be added to the final XForm.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="logo" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">A configuration option for changing the logo in the top left of the final web form. The URI is a RamonaRelative URI, and the attributes for the height and width can be used to override the true height and width of the image. </xs:documentation>
+					</xs:annotation>
 					<xs:complexType>
 						<xs:simpleContent>
 							<xs:extension base="ramonaRelativeURIType">
@@ -109,9 +141,16 @@
 	</xs:element>
 	
 	<xs:complexType name="ramonaRelativeURIType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">If the relative attribute is set to true it will be relative to the the Root URI defined in the transforms config.xml file.</xs:documentation>
+		</xs:annotation>
 		<xs:simpleContent>
 			<xs:extension base="xs:anyURI">
-				<xs:attribute name="relative" default="true"></xs:attribute>
+				<xs:attribute name="relative" default="true">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">If the relative attribute is set to true it will be relative to the the Root URI defined in the transforms config.xml file.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
