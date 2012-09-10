@@ -332,6 +332,7 @@
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:SourceQuestionReference>
+							<r:Description></r:Description>
 						</d:IfCondition>
 						<d:ThenConstructReference>
 							<r:ID>AcidTest_QC_25</r:ID>
@@ -351,6 +352,7 @@
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:SourceQuestionReference>
+							<r:Description>the respondents dog does play fetch</r:Description>
 						</d:IfCondition>
 						<d:ThenConstructReference>
 							<r:ID>seq_4</r:ID>
@@ -370,6 +372,7 @@
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:SourceQuestionReference>
+							<r:Description>the respondent has a dog</r:Description>
 						</d:IfCondition>
 						<d:ThenConstructReference>
 							<r:ID>seq_1</r:ID>
@@ -379,6 +382,7 @@
 						</d:ElseConstructReference>
 					</d:IfThenElse>
 					<d:Sequence id="acidTest">
+						<r:Label>Australian Dog Survey main sequence</r:Label>
 						<d:ControlConstructReference>
 							<r:ID>AcidTest_QC_05</r:ID>
 						</d:ControlConstructReference>
@@ -390,6 +394,7 @@
 						</d:ControlConstructReference>
 					</d:Sequence>
 					<d:Sequence id="seq_1">
+						<r:Label>Dog demographics &amp; activities</r:Label>
 						<d:ControlConstructReference>
 							<r:ID>AcidTest_QC_10</r:ID>
 						</d:ControlConstructReference>

@@ -8,7 +8,7 @@
 	xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips"
 	exclude-result-prefixes="ddi a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt skip fo xs">
 	<xsl:import href="./DDI_to_ResponseML.xsl"/>
-	<xsl:import href="./responseML_to_skips.xsl"/>
+
 
 	<xsl:template match="d:Instrument">
 		<xsl:apply-templates select="//d:Instrument" mode="graphBuilder"/>
@@ -28,5 +28,5 @@
 		<!-- xsl:copy-of select="$skips"/ -->
 	</xsl:template>
 	
-	<xsl:template match="skip:link" mode="graphBuilder">"<xsl:value-of select="@from"/>"-%3E"<xsl:value-of select="@to"/>";</xsl:template>
+	<xsl:template match="skip:link" mode="graphBuilder"><xsl:variable name="from" select="@from"/><xsl:variable name="to" select="@to"/>"<xsl:value-of select="exslt:node-set($numbers)/question[@qcID=$from]"/>"-%3E"<xsl:value-of select="exslt:node-set($numbers)/question[@qcID=$to]"/>";</xsl:template>
 </xsl:stylesheet>

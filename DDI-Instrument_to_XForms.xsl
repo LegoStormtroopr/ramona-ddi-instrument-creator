@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips" xmlns:cfg="rml:RamonaConfig_v1" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt msxsl skip cfg" extension-element-prefixes="exslt">
 	<!-- Import the XSLT for turning a responseML document into the skip patterns needed for conditional questions. -->
-	<xsl:import href="./responseML_to_Skips.xsl"/>
 	<xsl:import href="./DDI_to_ResponseML.xsl"/>
 	<xsl:import href="./DDIReferenceResolver.xsl"/>
 	<xsl:import href="./configTransformations.xsl"/>
@@ -48,44 +47,8 @@
 		This is created as a global variable as it is needed in several different places for processing.
 		The generated XML model of the questionnaire is needed for the data model of the final XForm, and exists as a ResponseML document.
 	-->
-	<xsl:variable name="instrumentModel">
-		<xsl:apply-templates select="//d:Instrument" mode="dataBuilder"/>
-	</xsl:variable>
-	<!--
-	This is used to convert numbers to letters for SubQuestions 
-	Based on solution here: http://bytes.com/topic/net/answers/85730-xslt-converting-number-into-character
-	-->
-	<xsl:variable name="ascii">abcdefghijklmnopqrstuvwxyz</xsl:variable>
-	<!-- Who needs more than 20 sub-sub-questions anyway? -->
-	<xsl:variable name="roman">i ii iii iv v vi vii viii ix x xi xii xiii xiv xv xvi xvii xviii xix xx</xsl:variable>
-	<!-- 
-		This is the area where the question and section numbers are generated. This is generated from the document order of responses in the instrumentModel above.
-	-->
-	<xsl:variable name="numbers">
-		<xsl:for-each select="exslt:node-set($instrumentModel)//rml:response">
-			<xsl:element name="question">
-				<xsl:attribute name="id"><xsl:value-of select="@questionItemID"/></xsl:attribute>
-				<xsl:value-of select="position()"/>
-			</xsl:element>
-		</xsl:for-each>
-		<xsl:for-each select="exslt:node-set($instrumentModel)/rml:sequence/*">
-			<xsl:element name="section">
-				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
-				<xsl:value-of select="position()"/>
-			</xsl:element>
-		</xsl:for-each>
-	</xsl:variable>
-	<!-- 
-		This is the area where the question and section numbers are generated. This is generated from the document order of responses in the instrumentModel above.
-		This code is contained within the ResponseML_to_skips.xsl file.
-	-->
-	<xsl:variable name="skips">
-		<xsl:call-template name="makeSkips">
-			<xsl:with-param name="doc">
-				<xsl:copy-of select="$instrumentModel"/>
-			</xsl:with-param>
-		</xsl:call-template>
-	</xsl:variable>
+
+
 	<!-- 
 		==============================
 		MAIN ENTRY POINT FOR TRANSFORM
