@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt skip">
+<xsl:stylesheet version="2.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips"  xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt skip msxsl">
 	<!--
 		
 		=========================
@@ -10,7 +10,7 @@
 		
 		Starting from the instrument dataBuilder template, which works on a DDI instrument, it iteratively builds a explict tree based on the implicit DDI hierarchy for a questionnaire.
 		For more information on the ResponseML format view the doccumentation for ResponseML.
-		
+		xsl:sequence
 		The algorithm for this transform works as so:
 		1. Find a DDI instrument
 			a. From the instrument get the reference to the ControlConstruct (Sequence, IfThenElse, Loop, QuestionConstruct)
@@ -23,6 +23,20 @@
 	-->
 		<xsl:import href="./stringFunctions.xsl"/>
 		<xsl:import href="./responseML_to_Skips.xsl"/>
+		
+		<!-- Simulating EXSLT for XSLT2.0 -->
+	<xsl:function name="exslt:node-set">
+		<xsl:param name="rtf"/>
+		<xsl:sequence select="$rtf"/>
+	</xsl:function> 
+
+	<!-- Simulating EXSLT node-set for the MS XML XSLT Engine -->
+	<msxsl:script language="JScript" implements-prefix="exslt">
+		 this['node-set'] =  function (x) {
+		  return x;
+		  }
+	</msxsl:script>
+	
 	
 	<!--
 		The default transform for this style sheet will find all DDI Instruments and create the appropriate ResponseML data model from them.
@@ -62,7 +76,7 @@
 	<xsl:variable name="skips">
 		<xsl:call-template name="makeSkips">
 			<xsl:with-param name="doc">
-				<xsl:copy-of select="$instrumentModel"/>
+				<xsl:copy-of select="exslt:node-set($instrumentModel)"/>
 			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:variable>
@@ -96,22 +110,31 @@
 			</xsl:for-each>
 		</xsl:element>
 	</xsl:template>
+		<xsl:template match="d:Loop" mode="dataBuilder">
+		<xsl:element name="rml:loop">
+			<rml:iteration>
+				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+				<xsl:for-each select="d:ControlConstructReference">
+					<xsl:variable name="id">
+						<xsl:value-of select="r:ID"/>
+					</xsl:variable>
+					<xsl:apply-templates select="//*[@id=$id]" mode="dataBuilder"/>
+				</xsl:for-each>
+			</rml:iteration>
+		</xsl:element>
+	</xsl:template>
 	<xsl:template match="d:IfThenElse" mode="dataBuilder">
 		<xsl:element name="rml:if">
 			<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 			<xsl:apply-templates select="d:IfCondition"/>
-			<rml:then>
-				<xsl:apply-templates select="./d:ThenConstructReference" mode="dataBuilder"/>
-			</rml:then>
-			<rml:else>
-				<xsl:apply-templates select="./d:ElseConstructReference" mode="dataBuilder"/>
-			</rml:else>
+			<xsl:apply-templates select="./d:ThenConstructReference" mode="dataBuilder"/>
+			<xsl:apply-templates select="./d:ElseConstructReference" mode="dataBuilder"/>
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="d:IfCondition">
 		<xsl:choose>
 			<!-- If we can use an orderedSQRConditional we will, as this allows for more automatic processing and skips in questions -->
-			<xsl:when test="./r:Code[@programmingLanguage='orderedSQRConditionaldfjlkgjlkjlkjlkg']">
+			<xsl:when test="./r:Code[@programmingLanguage='orderedSQRConditional']">
 				<rml:osc>
 					<xsl:variable name="SQRvalues">
 						<xsl:call-template name="tokenize">
@@ -171,16 +194,20 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="d:ThenConstructReference" mode="dataBuilder">
-		<xsl:variable name="id">
-			<xsl:value-of select="r:ID"/>
-		</xsl:variable>
-		<xsl:apply-templates select="//*[@id=$id]" mode="dataBuilder"/>
+		<rml:then>
+			<xsl:variable name="id">
+				<xsl:value-of select="r:ID"/>
+			</xsl:variable>
+			<xsl:apply-templates select="//*[@id=$id]" mode="dataBuilder"/>
+		</rml:then>
 	</xsl:template>
 	<xsl:template match="d:ElseConstructReference" mode="dataBuilder">
-		<xsl:variable name="id">
-			<xsl:value-of select="r:ID"/>
-		</xsl:variable>
-		<xsl:apply-templates select="//*[@id=$id]" mode="dataBuilder"/>
+		<rml:else>
+			<xsl:variable name="id">
+				<xsl:value-of select="r:ID"/>
+			</xsl:variable>
+			<xsl:apply-templates select="//*[@id=$id]" mode="dataBuilder"/>
+		</rml:else>
 	</xsl:template>
 	<!--
 		Processing the QuestionItem is not needed for creating the ResponseML construct as the QuestionConstruct can be treated as a proxy for the question when dealing with the structure.

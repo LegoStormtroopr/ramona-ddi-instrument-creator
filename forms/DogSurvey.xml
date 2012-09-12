@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DDIInstance id="x0" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr" xmlns="ddi:instance:3_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:instance:3_1 P:\DDI_3_1_Spec\XMLSchema\instance.xsd" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1">
-	<g:ResourcePackage id="AcidTest_Test_Form_1" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr" xml:lang="en">
+	<g:ResourcePackage id="DogSurvey_Test_Form_1" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr" xml:lang="en">
 		<r:Citation>
 			<r:Title/>
 		</r:Citation>
@@ -12,16 +12,16 @@
 		</g:Purpose>
 		<g:DataCollection>
 			<d:DataCollection id="x3" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
-				<d:QuestionScheme id="qsAcidTest" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+				<d:QuestionScheme id="qsDogSurvey" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
 					<r:Label>Carbon Farming Survey Questions</r:Label>
-					<d:MultipleQuestionItem id="AcidTest_Q_06" version="0.0.1">
+					<d:MultipleQuestionItem id="DogSurvey_Q_06" version="0.0.1">
 						<d:QuestionText>
 							<d:LiteralText>
 								<d:Text>What is the main reason you do not own a dog?</d:Text>
 							</d:LiteralText>
 						</d:QuestionText>
 						<d:SubQuestions>
-							<d:QuestionItem id="AcidTest_Q_07a" version="0.0.1">
+							<d:QuestionItem id="DogSurvey_Q_07a" version="0.0.1">
 								<d:QuestionText>
 									<d:LiteralText>
 										<d:Text>Select one:</d:Text>
@@ -35,7 +35,7 @@
 									</r:CodeSchemeReference>
 								</d:CodeDomain>
 							</d:QuestionItem>
-							<d:QuestionItem id="AcidTest_Q_07b" version="0.0.1">
+							<d:QuestionItem id="DogSurvey_Q_07b" version="0.0.1">
 								<d:QuestionText>
 									<d:LiteralText>
 										<d:Text>Please specify</d:Text>
@@ -45,7 +45,7 @@
 							</d:QuestionItem>
 						</d:SubQuestions>
 					</d:MultipleQuestionItem>
-					<d:QuestionItem id="AcidTest_Q_05" version="0.0.1">
+					<d:QuestionItem id="DogSurvey_Q_05" version="0.0.1">
 						<d:QuestionText>
 							<d:LiteralText>
 								<d:Text>Do you own a dog?</d:Text>
@@ -59,7 +59,7 @@
 							</r:CodeSchemeReference>
 						</d:CodeDomain>
 					</d:QuestionItem>
-					<d:QuestionItem id="AcidTest_Q_10" version="0.0.1">
+					<d:QuestionItem id="DogSurvey_Q_10" version="0.0.1">
 						<d:QuestionText>
 							<d:LiteralText>
 								<d:Text>What is your dog's name?</d:Text>
@@ -67,7 +67,7 @@
 						</d:QuestionText>
 						<d:TextDomain/>
 					</d:QuestionItem>
-					<d:QuestionItem id="AcidTest_Q_20" version="0.0.1">
+					<d:QuestionItem id="DogSurvey_Q_20" version="0.0.1">
 						<d:QuestionText>
 							<d:LiteralText>
 								<d:Text>What is the sex of </d:Text>
@@ -75,15 +75,15 @@
 							<d:ConditionalText>
 								<r:Description>This word substitution will insert the name of the dog, or if the name is not known it will insert the text "your dog"</r:Description>
 								<d:Expression>
-									<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_10']</r:Code>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='DogSurvey_QC_10']</r:Code>
 									<r:Code programmingLanguage="responseML_default">"your dog"</r:Code>
 									<r:SourceQuestionReference>
 										<r:Scheme>
-											<r:ID>qsAcidTest</r:ID>
+											<r:ID>qsDogSurvey</r:ID>
 											<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 											<r:Version>0.0.1</r:Version>
 										</r:Scheme>
-										<r:ID>AcidTest_Q_10</r:ID>
+										<r:ID>DogSurvey_Q_10</r:ID>
 										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 										<r:Version>0.0.1</r:Version>
 									</r:SourceQuestionReference>
@@ -101,21 +101,21 @@
 							</r:CodeSchemeReference>
 						</d:CodeDomain>
 					</d:QuestionItem>
-					<d:QuestionItem id="AcidTest_Q_25" version="0.0.1">
+					<d:QuestionItem id="DogSurvey_Q_25" version="0.0.1">
 						<d:QuestionText>
 							<d:LiteralText>
 								<d:Text>Has </d:Text>
 							</d:LiteralText>
 							<d:ConditionalText>
 								<d:Expression>
-									<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_10']</r:Code>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='DogSurvey_QC_10']</r:Code>
 									<r:SourceQuestionReference>
 										<r:Scheme>
-											<r:ID>qsAcidTest</r:ID>
+											<r:ID>qsDogSurvey</r:ID>
 											<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 											<r:Version>0.0.1</r:Version>
 										</r:Scheme>
-										<r:ID>AcidTest_Q_10</r:ID>
+										<r:ID>DogSurvey_Q_10</r:ID>
 										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 										<r:Version>0.0.1</r:Version>
 									</r:SourceQuestionReference>
@@ -133,22 +133,22 @@
 							</r:CodeSchemeReference>
 						</d:CodeDomain>
 					</d:QuestionItem>
-					<d:QuestionItem id="AcidTest_Q_30" version="0.0.1">
+					<d:QuestionItem id="DogSurvey_Q_30" version="0.0.1">
 						<d:QuestionText>
 							<d:LiteralText>
 								<d:Text>Does </d:Text>
 							</d:LiteralText>
 							<d:ConditionalText>
 								<d:Expression>
-									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='AcidTest_QC_20']]/@subtext</r:Code>
-									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='AcidTest_QC_20']]/@subtext</r:Code>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='DogSurvey_QC_20']]/@subtext</r:Code>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='DogSurvey_QC_20']]/@subtext</r:Code>
 									<r:SourceQuestionReference>
 										<r:Scheme>
-											<r:ID>qsAcidTest</r:ID>
+											<r:ID>qsDogSurvey</r:ID>
 											<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 											<r:Version>0.0.1</r:Version>
 										</r:Scheme>
-										<r:ID>AcidTest_Q_30</r:ID>
+										<r:ID>DogSurvey_Q_30</r:ID>
 										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 										<r:Version>0.0.1</r:Version>
 									</r:SourceQuestionReference>
@@ -166,21 +166,21 @@
 							</r:CodeSchemeReference>
 						</d:CodeDomain>
 					</d:QuestionItem>
-					<d:QuestionItem id="AcidTest_Q_40" version="0.0.1">
+					<d:QuestionItem id="DogSurvey_Q_40" version="0.0.1">
 						<d:QuestionText>
 							<d:LiteralText>
 								<d:Text>What does </d:Text>
 							</d:LiteralText>
 							<d:ConditionalText>
 								<d:Expression>
-									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='AcidTest_QC_20']]/@subtext</r:Code>
+									<r:Code programmingLanguage="responseML_xpath1.0">//rml:wordsubs[@id='codeScheme-Sex-MF']/rml:wordsub[@value=//rml:response[@id='DogSurvey_QC_20']]/@subtext</r:Code>
 									<r:SourceQuestionReference>
 										<r:Scheme>
-											<r:ID>qsAcidTest</r:ID>
+											<r:ID>qsDogSurvey</r:ID>
 											<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 											<r:Version>0.0.1</r:Version>
 										</r:Scheme>
-										<r:ID>AcidTest_Q_30</r:ID>
+										<r:ID>DogSurvey_Q_30</r:ID>
 										<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 										<r:Version>0.0.1</r:Version>
 									</r:SourceQuestionReference>
@@ -192,13 +192,13 @@
 						</d:QuestionText>
 						<d:CategoryDomain>
 							<r:CategorySchemeReference>
-								<r:ID>catScheme-AcidTest-Fetchables</r:ID>
+								<r:ID>catScheme-DogSurvey-Fetchables</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:CategorySchemeReference>
 						</d:CategoryDomain>
 					</d:QuestionItem>
-					<d:QuestionItem id="AcidTest_Q_80" version="0.0.1">
+					<d:QuestionItem id="DogSurvey_Q_80" version="0.0.1">
 						<d:QuestionText>
 							<d:LiteralText>
 								<d:Text>If you have any comments on this survey please write them below:</d:Text>
@@ -207,168 +207,168 @@
 						<d:TextDomain maxLength="5000"/>
 					</d:QuestionItem>
 				</d:QuestionScheme>
-				<d:ControlConstructScheme isMaintainable="true" id="AcidTest_QuestionConstructs" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
-					<d:QuestionConstruct id="AcidTest_QC_10" version="0.0.1">
+				<d:ControlConstructScheme isMaintainable="true" id="DogSurvey_QuestionConstructs" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<d:QuestionConstruct id="DogSurvey_QC_10" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_10</r:ID>
+							<r:ID>DogSurvey_Q_10</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
-					<d:QuestionConstruct id="AcidTest_QC_20" version="0.0.1">
+					<d:QuestionConstruct id="DogSurvey_QC_20" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_20</r:ID>
+							<r:ID>DogSurvey_Q_20</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
-					<d:QuestionConstruct id="AcidTest_QC_25" version="0.0.1">
+					<d:QuestionConstruct id="DogSurvey_QC_25" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_25</r:ID>
+							<r:ID>DogSurvey_Q_25</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
-					<d:QuestionConstruct id="AcidTest_QC_30" version="0.0.1">
+					<d:QuestionConstruct id="DogSurvey_QC_30" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_30</r:ID>
+							<r:ID>DogSurvey_Q_30</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
-					<d:QuestionConstruct id="AcidTest_QC_40" version="0.0.1">
+					<d:QuestionConstruct id="DogSurvey_QC_40" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_40</r:ID>
+							<r:ID>DogSurvey_Q_40</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
-					<d:QuestionConstruct id="AcidTest_QC_50" version="0.0.1">
+					<d:QuestionConstruct id="DogSurvey_QC_50" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_50</r:ID>
+							<r:ID>DogSurvey_Q_50</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
-					<d:QuestionConstruct id="AcidTest_QC_05" version="0.0.1">
+					<d:QuestionConstruct id="DogSurvey_QC_05" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_05</r:ID>
+							<r:ID>DogSurvey_Q_05</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
-					<d:QuestionConstruct id="AcidTest_QC_06" version="0.0.1">
+					<d:QuestionConstruct id="DogSurvey_QC_06" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_06</r:ID>
+							<r:ID>DogSurvey_Q_06</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
-					<d:QuestionConstruct id="AcidTest_QC_80" version="0.0.1">
+					<d:QuestionConstruct id="DogSurvey_QC_80" version="0.0.1">
 						<d:QuestionReference>
 							<r:Scheme>
-								<r:ID>qsAcidTest</r:ID>
+								<r:ID>qsDogSurvey</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>AcidTest_Q_80</r:ID>
+							<r:ID>DogSurvey_Q_80</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
 				</d:ControlConstructScheme>
-				<d:ControlConstructScheme isMaintainable="true" id="AcidTest_main" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
-					<d:IfThenElse id="AcidTest_IF_3">
+				<d:ControlConstructScheme isMaintainable="true" id="DogSurvey_main" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<d:IfThenElse id="DogSurvey_IF_3">
 						<d:IfCondition>
-							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_20'] = 2</r:Code>
+							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='DogSurvey_QC_20'] = 2</r:Code>
 							<r:Code programmingLanguage="orderedSQRConditional">2</r:Code>
 							<r:SourceQuestionReference>
 								<r:Scheme>
-									<r:ID>qsAcidTest</r:ID>
+									<r:ID>qsDogSurvey</r:ID>
 									<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 									<r:Version>0.0.1</r:Version>
 								</r:Scheme>
-								<r:ID>AcidTest_Q_20</r:ID>
+								<r:ID>DogSurvey_Q_20</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:SourceQuestionReference>
 							<r:Description></r:Description>
 						</d:IfCondition>
 						<d:ThenConstructReference>
-							<r:ID>AcidTest_QC_25</r:ID>
+							<r:ID>DogSurvey_QC_25</r:ID>
 						</d:ThenConstructReference>
 					</d:IfThenElse>
-					<d:IfThenElse id="AcidTest_IF_2">
+					<d:IfThenElse id="DogSurvey_IF_2">
 						<d:IfCondition>
-							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_30'] = 1</r:Code>
+							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='DogSurvey_QC_30'] = 1</r:Code>
 							<r:Code programmingLanguage="orderedSQRConditional">1</r:Code>
 							<r:SourceQuestionReference>
 								<r:Scheme>
-									<r:ID>qsAcidTest</r:ID>
+									<r:ID>qsDogSurvey</r:ID>
 									<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 									<r:Version>0.0.1</r:Version>
 								</r:Scheme>
-								<r:ID>AcidTest_Q_30</r:ID>
+								<r:ID>DogSurvey_Q_30</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:SourceQuestionReference>
 							<r:Description>the respondents dog does play fetch</r:Description>
 						</d:IfCondition>
 						<d:ThenConstructReference>
-							<r:ID>seq_4</r:ID>
+							<r:ID>DogSurvey_QC_40</r:ID>
 						</d:ThenConstructReference>
 					</d:IfThenElse>
-					<d:IfThenElse id="AcidTest_IF_1">
+					<d:IfThenElse id="DogSurvey_IF_1">
 						<d:IfCondition>
-							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='AcidTest_QC_05'] = 1</r:Code>
+							<r:Code programmingLanguage="responseML_xpath1.0">//rml:response[@id='DogSurvey_QC_05'] = 1</r:Code>
 							<r:Code programmingLanguage="orderedSQRConditional">1</r:Code>
 							<r:SourceQuestionReference>
 								<r:Scheme>
-									<r:ID>qsAcidTest</r:ID>
+									<r:ID>qsDogSurvey</r:ID>
 									<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 									<r:Version>0.0.1</r:Version>
 								</r:Scheme>
-								<r:ID>AcidTest_Q_05</r:ID>
+								<r:ID>DogSurvey_Q_05</r:ID>
 								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:SourceQuestionReference>
@@ -381,13 +381,13 @@
 							<r:ID>seq_2</r:ID>
 						</d:ElseConstructReference>
 					</d:IfThenElse>
-					<d:Sequence id="acidTest">
+					<d:Sequence id="DogSurvey">
 						<r:Label>Australian Dog Survey main sequence</r:Label>
 						<d:ControlConstructReference>
-							<r:ID>AcidTest_QC_05</r:ID>
+							<r:ID>DogSurvey_QC_05</r:ID>
 						</d:ControlConstructReference>
 						<d:ControlConstructReference>
-							<r:ID>AcidTest_IF_1</r:ID>
+							<r:ID>DogSurvey_IF_1</r:ID>
 						</d:ControlConstructReference>
 						<d:ControlConstructReference>
 							<r:ID>seq_5</r:ID>
@@ -396,10 +396,10 @@
 					<d:Sequence id="seq_1">
 						<r:Label>Dog demographics &amp; activities</r:Label>
 						<d:ControlConstructReference>
-							<r:ID>AcidTest_QC_10</r:ID>
+							<r:ID>DogSurvey_QC_10</r:ID>
 						</d:ControlConstructReference>
 						<d:ControlConstructReference>
-							<r:ID>AcidTest_QC_20</r:ID>
+							<r:ID>DogSurvey_QC_20</r:ID>
 						</d:ControlConstructReference>
 						<d:ControlConstructReference>
 							<r:ID>seq_3</r:ID>
@@ -408,28 +408,23 @@
 					<d:Sequence id="seq_2">
 						<r:Label>Reasons for non-ownership</r:Label>
 						<d:ControlConstructReference>
-							<r:ID>AcidTest_QC_06</r:ID>
+							<r:ID>DogSurvey_QC_06</r:ID>
 						</d:ControlConstructReference>
 					</d:Sequence>
 					<d:Sequence id="seq_3">
 						<r:Label>Exercise activities</r:Label>
 						<d:Type/>
 						<d:ControlConstructReference>
-							<r:ID>AcidTest_QC_30</r:ID>
+							<r:ID>DogSurvey_QC_30</r:ID>
 						</d:ControlConstructReference>
 						<d:ControlConstructReference>
-							<r:ID>AcidTest_IF_2</r:ID>
+							<r:ID>DogSurvey_IF_2</r:ID>
 						</d:ControlConstructReference>
 					</d:Sequence>
 					<d:Sequence id="seq_5">
 						<r:Label>Comments</r:Label>
 						<d:ControlConstructReference>
-							<r:ID>AcidTest_QC_80</r:ID>
-						</d:ControlConstructReference>
-					</d:Sequence>
-					<d:Sequence id="seq_4">
-						<d:ControlConstructReference>
-							<r:ID>AcidTest_QC_40</r:ID>
+							<r:ID>DogSurvey_QC_80</r:ID>
 						</d:ControlConstructReference>
 					</d:Sequence>
 				</d:ControlConstructScheme>
@@ -453,11 +448,11 @@
 					</r:Software>
 					<d:ControlConstructReference isReference="true">
 						<r:Scheme>
-							<r:ID>AcidTest_main2</r:ID>
+							<r:ID>DogSurvey_main2</r:ID>
 							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</r:Scheme>
-						<r:ID>acidTest</r:ID>
+						<r:ID>DogSurvey</r:ID>
 						<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 						<r:Version>0.0.1</r:Version>
 					</d:ControlConstructReference>
@@ -465,25 +460,25 @@
 			</d:DataCollection>
 		</g:DataCollection>
 		<g:LogicalProduct>
-			<l:LogicalProduct id="catScheme-AcidTest-Fetchables_LP" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
-				<l:CategoryScheme id="catScheme-AcidTest-Fetchables" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+			<l:LogicalProduct id="catScheme-DogSurvey-Fetchables_LP" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+				<l:CategoryScheme id="catScheme-DogSurvey-Fetchables" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
 					<r:Label>Reasons people might like Categories</r:Label>
-					<l:Category id="cat-AcidTest_WhyLikeCat-ball" version="0.0.1">
+					<l:Category id="cat-DogSurvey_WhyLikeCat-ball" version="0.0.1">
 						<r:Label>Ball</r:Label>
 					</l:Category>
-					<l:Category id="cat-AcidTest_WhyLikeCat-bones" version="0.0.1">
+					<l:Category id="cat-DogSurvey_WhyLikeCat-bones" version="0.0.1">
 						<r:Label>Bones</r:Label>
 					</l:Category>
-					<l:Category id="cat-AcidTest_WhyLikeCat-sticks" version="0.0.1">
+					<l:Category id="cat-DogSurvey_WhyLikeCat-sticks" version="0.0.1">
 						<r:Label>Sticks</r:Label>
 					</l:Category>
-					<l:Category id="cat-AcidTest_WhyLikeCat-frisbee" version="0.0.1">
+					<l:Category id="cat-DogSurvey_WhyLikeCat-frisbee" version="0.0.1">
 						<r:Label>Frisbee</r:Label>
 					</l:Category>
-					<l:Category id="cat-AcidTest_WhyLikeCat-news" version="0.0.1">
+					<l:Category id="cat-DogSurvey_WhyLikeCat-news" version="0.0.1">
 						<r:Label>Newspaper</r:Label>
 					</l:Category>
-					<l:Category id="cat-AcidTest_WhyLikeCat-post" version="0.0.1">
+					<l:Category id="cat-DogSurvey_WhyLikeCat-post" version="0.0.1">
 						<r:Label>Postman</r:Label>
 					</l:Category>
 				</l:CategoryScheme>

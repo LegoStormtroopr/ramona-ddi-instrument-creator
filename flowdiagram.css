@@ -1,0 +1,124 @@
+h2 {margin-bottom:5px;}
+#flowchart {float:left;border:1px solid black;}
+#flowchart img {max-width:250px;}
+#mainWindow {margin-left:255px;border-left:1px solid black;padding-left:10px;}
+#instrumentInfo {padding-left:15px;margin-bottom:2px;}
+
+.ifbox, .questionNumber, .sequenceBox, .loopBox {
+	display:inline-block; width:20px;
+	text-align:right;
+	font-weight:bold;
+	font-size:75%;
+	border:1px solid black;
+	padding-right:8px;
+	text-decoration:none;
+	margin-right:1ex;
+}
+.sequenceBox {
+	background-color:lightblue;
+}
+.loopBox {
+	background:lightyellow;
+}
+.ifbox{
+	background-color:lightgreen;
+}
+.questionNumber{
+	background-color:salmon;
+	
+}
+.questionDetails {
+	padding-left:50px;
+	display:block;
+	position:relative;
+	top:-15px;
+}
+.showDetail{
+	font-size:75%;
+	border:1px solid black;background-color:lightgray;
+	padding:2px;
+	text-decoration:none;
+	}
+.HBD + .detail {
+	/* Hidden By Default */
+	display:none; 
+	}
+.boxed {
+	border:1px solid black;
+}
+.detail {
+	padding:0px;
+	margin:0px;
+}
+ul {
+	margin:0px;
+	margin-left:20px;
+	padding-left:5px;
+}
+li {
+	list-style-type:none;
+	border-left:1px solid lightgray;
+	background-color: white;
+}
+.condition {
+	padding-left:10px;
+}
+.sequence:hover {
+	background-color: lightblue;
+}
+.loop:hover {
+	background-color:goldenrod;
+}
+.sequence>li, .loop>li {
+	list-style-type:none;
+	border-left:1px solid black;
+	
+	padding-left:0px;
+	margin-left:1px;	
+}
+.sequence>li:before, .loop>li:before {
+	content:"\2500";
+	display:inline;
+}
+.sequence>li:last-child, .loop>li:last-child  {
+	border-left:0px solid black;
+
+}
+.sequence>li:last-child:before, .loop>li:last-child:before {
+	border-left:0px solid black;
+	content:"\2514\2500";
+	display:inline;
+	position:relative;
+	left:-5px;
+}
+.if:hover {
+	background-color: lightgreen;
+}
+.if>li {
+	list-style-type:none;
+	border-left:1px solid black;
+	padding-left:15px;
+}
+.if>li:before {
+	content:"\2500\25B6";
+	display:inline;
+	position:relative;
+	left:-15px;
+}
+.if>li>strong {
+	position:relative;
+	left:-15px;
+}
+.if>li:last-child {
+	border-left:0px solid black;
+}
+.if>li:last-child:before {
+	border-left:0px solid black;
+	content:"\2514\2500\25B6";
+	display:inline;
+	position:relative;
+	left:-20px;
+}
+.if>li>.detail {
+	padding-left:20px;
+}

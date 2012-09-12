@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips" xmlns:cfg="rml:RamonaConfig_v1" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt msxsl skip cfg" extension-element-prefixes="exslt">
+<xsl:stylesheet version="2.0" xmlns:exslt="http://exslt.org/common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:rml="http://legostormtoopr/response" xmlns:skip="http://legostormtoopr/skips" xmlns:cfg="rml:RamonaConfig_v1" exclude-result-prefixes="ns1 a r dc ns7 cm d l c ds p pr s g pi m3 m1 m2 exslt  skip cfg" extension-element-prefixes="exslt">
 	<!-- Import the XSLT for turning a responseML document into the skip patterns needed for conditional questions. -->
 	<xsl:import href="./DDI_to_ResponseML.xsl"/>
 	<xsl:import href="./DDIReferenceResolver.xsl"/>
@@ -8,18 +8,7 @@
 	<!-- We are outputing XHTML so the output method will be XML, not HTML -->
 	<xsl:output method="xml"/>
 
-	<!-- Simulating EXSLT for XSLT2.0 -->
-	<xsl:function name="exslt:node-set">
-		<xsl:param name="rtf"/>
-		<xsl:sequence select="$rtf"/>
-	</xsl:function> 
-	
-	<!-- Simulating EXSLT node-set for the MS XML XSLT Engine -->
-	<msxsl:script language="JScript" implements-prefix="exslt">
-	 this['node-set'] =  function (x) {
-	  return x;
-	  }
-	</msxsl:script>
+
 	
 	<!-- Read in the configuration file. This contains information about how the XForm is to be created and displayed. Including CSS file locations and language information. -->
 	<xsl:variable name="config" select="document('./config.xml')/cfg:config"/>
@@ -288,16 +277,18 @@
 		<xsl:param name="qID"/>
 		<span class="questionNumber">
 			<xsl:choose>
-				<xsl:when test="$instrumentModel//rml:multipart/rml:multipart/*[@id=$qID] and $theme/cfg:subquestion/@visible != false()">
+				<!-- SUBQUESTIONS don't come up often, and this needs to be fixed.
+					
+					xsl:when test="exslt:node-set($instrumentModel)//rml:multipart/rml:multipart/*[@id=$qID] and $theme/cfg:subquestion/@visible != false()">
 					<xsl:value-of select="$theme/cfg:subquestion/cfg:before"/>
-					<xsl:value-of select="substring($roman,$instrumentModel//*[@id=$qID]/position(),1)"/>
+					<xsl:value-of select="substring($roman,exslt:node-set($instrumentModel)//*[@id=$qID]/position(),1)"/>
 					<xsl:value-of select="$theme/cfg:subquestion/cfg:after"/>			
 				</xsl:when>
-				<xsl:when test="$instrumentModel//rml:multipart/*[@id=$qID] and $theme/cfg:subquestion/@visible != false()">
+				<xsl:when test="exslt:node-set($instrumentModel)//rml:multipart/*[@id=$qID] and $theme/cfg:subquestion/@visible != false()">
 					<xsl:value-of select="$theme/cfg:subquestion/cfg:before"/>
-					<xsl:value-of select="substring($ascii,$instrumentModel//*[@id=$qID]/position(),1)"/>
+					<xsl:value-of select="substring($ascii,exslt:node-set($instrumentModel)//*[@id=$qID]/position(),1)"/>
 					<xsl:value-of select="$theme/cfg:subquestion/cfg:after"/>
-				</xsl:when>
+				</xsl:when -->
 				<xsl:when test="$theme/cfg:question/@visible != false()">
 					<xsl:value-of select="$theme/cfg:question/cfg:before"/>
 					<xsl:value-of select="exslt:node-set($numbers)/question[@id=$qID]"/>
@@ -334,7 +325,7 @@
 						<xsl:value-of select="$id"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="$instrumentModel//*[@questionItemID=$id]/@id"/>
+						<xsl:value-of select="exslt:node-set($instrumentModel)//*[@questionItemID=$id]/@id"/>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:with-param>
@@ -422,6 +413,41 @@
 					<xsl:element name="xf:item">
 						<xsl:element name="xf:label">
 							<xsl:apply-templates select="//l:Category[@id=$categoryID]/r:Label[not(@type)]"/>
+							<xsl:if test="exslt:node-set($instrumentModel)//rml:condition[@question=$qcID]">
+								<xsl:choose>
+									<xsl:when test="exslt:node-set($skips)/skip:link[@from = $qcID and @condition = $value]">
+										<xsl:variable name="to"><xsl:value-of select="exslt:node-set($skips)/skip:link[@from = $qcID and @condition = $value]/@to"/></xsl:variable>
+										<span class="skipRemark">
+											<xsl:element name="xf:group">
+												<xsl:attribute name="bind">bindThen-<xsl:value-of select="exslt:node-set($skips)/skip:link[@from = $qcID and @condition = $value]/@ifID"/></xsl:attribute>
+												<xsl:element name="span">
+													<xsl:attribute name="class">skipStatement</xsl:attribute>
+													<xsl:attribute name="id"></xsl:attribute>
+													Go to <xsl:element name="a">
+														<xsl:attribute name="href">#<xsl:value-of select="$to"/></xsl:attribute>
+														Question <xsl:value-of select="exslt:node-set($numbers)/question[@qcID = $to]"/>
+														</xsl:element>
+												</xsl:element>
+											</xsl:element>
+										</span>
+									</xsl:when>
+									<xsl:when test="exslt:node-set($skips)/skip:link[@from = $qcID and @condition = 'otherwise']">
+										<xsl:variable name="to"><xsl:value-of select="exslt:node-set($skips)/skip:link[@from = $qcID and @condition = 'otherwise']/@to"/></xsl:variable>
+										<span class="skipRemark">
+											<xsl:element name="xf:group">
+												<xsl:attribute name="bind">bindElse-<xsl:value-of select="exslt:node-set($skips)/skip:link[@from = $qcID and @condition = 'otherwise']/@ifID"/></xsl:attribute>
+											<xsl:element name="span">
+												<xsl:attribute name="class">skipStatement</xsl:attribute>
+												Go to <xsl:element name="a">
+													<xsl:attribute name="href">#<xsl:value-of select="$to"/></xsl:attribute>
+													Question <xsl:value-of select="exslt:node-set($numbers)/question[@qcID = $to]"/>
+													</xsl:element>
+											</xsl:element>
+										</xsl:element>
+										</span>
+									</xsl:when>
+								</xsl:choose>
+							</xsl:if>
 						</xsl:element>
 						<xsl:element name="xf:value">
 							<xsl:value-of select="$value"/>

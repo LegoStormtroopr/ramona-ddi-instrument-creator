@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
+<xsl:stylesheet version="2.0"
 	xmlns:exslt="http://exslt.org/common"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ev="http://www.w3.org/2001/xml-events"
 	xmlns:ddi="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1"
@@ -40,7 +40,7 @@
 	<xsl:template match="/">
 		<html>
 			<head>
-				<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"/>
+				<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">var x;</script>
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$("a.showDetail").text("[-]");
@@ -60,100 +60,7 @@
 						
 					});
 				</script>
-				<style>
-					h2 {margin-bottom:5px;}
-					#flowchart {float:left;border:1px solid black;}
-					#flowchart img {max-width:250px;}
-					#mainWindow {margin-left:255px;border-left:1px solid black;padding-left:10px;}
-					#instrumentInfo {padding-left:15px;margin-bottom:2px;}
-					.sequenceBox {
-						background-color:lightblue;
-					}
-					.ifbox, .questionNumber, .sequenceBox {
-						display:inline-block; width:20px;
-						text-align:right;
-						font-weight:bold;
-						font-size:75%;
-						border:1px solid black;
-						padding-right:8px;
-						text-decoration:none;
-						margin-right:1ex;
-					}
-					.ifbox{
-						background-color:lightgreen;
-					}
-					.questionNumber{
-						background-color:salmon;
-					}
-					.showDetail{
-						font-size:75%;
-						border:1px solid black;background-color:lightgray;
-						padding:2px;
-						text-decoration:none;
-						}
-					.HBD + .detail {
-						/* Hidden By Default */
-						display:none; 
-						}
-					.boxed {
-						border:1px solid black;
-					}
-					.detail {
-						padding:0px;
-						margin:0px;
-					}
-					ul {
-						margin:0px;
-						padding-left:25px;
-					}
-					li {
-						list-style-type:none;
-						border-left:1px solid lightgray;
-						
-					}
-					.condition {
-						padding-left:10px;
-					}
-					.sequence>li {
-						list-style-type:none;
-						border-left:1px solid black;
-						padding-left:0px;
-						
-					}
-					.sequence>li:before {
-						content:"&#x2500;";
-						display:inline;
-					}
-				
-					.if>li {
-						list-style-type:none;
-						border-left:1px solid black;
-						padding-left:15px;
-					}
-					.if>li:before {
-						content:"&#x2500;&#x25B6;";
-						display:inline;
-						position:relative;
-						left:-15px;
-					}
-					.if>li>strong {
-						position:relative;
-						left:-15px;
-					}
-					.if>li:last-child {
-						border-left:0px solid black;
-					}
-					.if>li:last-child:before {
-						border-left:0px solid black;
-						content:"&#x2514;&#x2500;&#x25B6;";
-						display:inline;
-						position:relative;
-						left:-20px;
-					}
-					.if>li>.detail {
-						padding-left:20px;
-					}
-				</style>
+				<link rel="stylesheet" type="text/css" href="flowdiagram.css" />
 			</head>
 			<body>
 					<xsl:apply-templates select="//d:Instrument" />
@@ -165,7 +72,7 @@
 		<div id="instrumentInfo" >
 			Description: <a href="#" class="showDetail HBD">Toggle Detail</a>
 			<div class="detail boxed">
-				<xsl:copy-of select="r:Description"/>
+				<xsl:copy-of select="r:Description/*"/>
 			</div>
 		</div>
 		<xsl:variable name="construct">
@@ -178,6 +85,22 @@
 		</div>
 		<div id="mainWindow">
 			<xsl:apply-templates select="//d:Sequence[@id=$construct]" />
+		</div>
+	</xsl:template>
+	<xsl:template match="d:Loop" >
+		<span title="{@id}"><span class="loopBox">L</span> <xsl:value-of select="d:LoopWhile/r:Description"/> <small> (Loop)</small></span>
+		<a href="#" class="showDetail">+/-</a>
+		<div class="detail">
+			<ul class="loop">
+			<xsl:for-each select="d:ControlConstructReference">
+				<li>
+					<xsl:variable name="id">
+						<xsl:value-of select="r:ID"/>
+					</xsl:variable>
+					<xsl:apply-templates select="//*[@id=$id]" />
+				</li>
+			</xsl:for-each>
+			</ul>
 		</div>
 	</xsl:template>
 	<xsl:template match="d:Sequence" >
@@ -209,7 +132,7 @@
 			</ul>
 		
 	</xsl:template>
-	<xsl:template match="d:IfCondition/r:SourceQuestionReference">
+	<xsl:template match="r:SourceQuestionReference">
 		<xsl:variable name="id"><xsl:value-of select="r:ID"/></xsl:variable>
 		Based on Question <strong><a href="#{$id}"><xsl:value-of select="$id"/></a></strong><br/>
 	</xsl:template>
@@ -293,12 +216,16 @@
 		<xsl:variable name="question">
 			<xsl:value-of select="d:QuestionReference/r:ID"/>
 		</xsl:variable>
-		<a href="#" class="questionNumber" title="{$question}"><xsl:value-of select="exslt:node-set($numbers)/question[@id=$question]"/></a>
-		<xsl:apply-templates select="//d:MultipleQuestionItem[@id=$question] | //d:QuestionItem[@id=$question]">
-			<xsl:with-param name="qcID">
-				<xsl:value-of select="@id"/>
-			</xsl:with-param>
-		</xsl:apply-templates>
+		<span>
+			<span class="questionNumber" title="{$question}"><xsl:value-of select="exslt:node-set($numbers)/question[@id=$question]"/></span>
+			<span class="questionDetails">
+				<xsl:apply-templates select="//d:MultipleQuestionItem[@id=$question] | //d:QuestionItem[@id=$question]">
+					<xsl:with-param name="qcID">
+						<xsl:value-of select="@id"/>
+					</xsl:with-param>
+				</xsl:apply-templates>
+			</span>
+		</span>
 	</xsl:template>
 	<!--
 		We need to examine the MultipleQuestionItems to get all sub questions so they each have their own data node in the model.
@@ -327,13 +254,13 @@
 		<xsl:apply-templates select="*"/>
 	</xsl:template>
 	<xsl:template match="d:LiteralText">
-		<xsl:value-of select="."/>
+		<xsl:copy-of select="*"/>
 	</xsl:template>
 	<xsl:template match="d:ConditionalText">
 		<xsl:variable name="description"><xsl:value-of select="r:Description"/></xsl:variable>
 		<span style="font-family:monospace;font-size:80%"> wordsub <a href="#" title="{$description}" class="showDetail HBD">+/-</a>
 			<div class="detail boxed">
-				<xsl:value-of select="d:Expression"/>
+				<xsl:apply-templates select="d:Expression"/>
 			</div></span>
 	</xsl:template>
 	<!-- As a base case, when matching anything not explicitly contained above - output nothing. -->
