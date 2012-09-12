@@ -84,12 +84,13 @@ li {
 	border-left:0px solid black;
 
 }
+
 .sequence>li:last-child:before, .loop>li:last-child:before {
-	border-left:0px solid black;
-	content:"\2514\2500";
-	display:inline;
+	content:"\2514";
 	position:relative;
 	left:-5px;
+	padding-right:0px;
+	margin-right:0px;
 }
 .if:hover {
 	background-color: lightgreen;

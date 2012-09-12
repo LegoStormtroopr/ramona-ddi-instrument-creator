@@ -40,6 +40,7 @@
 	<xsl:template match="/">
 		<html>
 			<head>
+				<title>Flow Diagram of '<xsl:value-of select="//d:Instrument/d:InstrumentName"/>'</title>
 				<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">var x;</script>
 				<script type="text/javascript">
 					$(document).ready(function(){
