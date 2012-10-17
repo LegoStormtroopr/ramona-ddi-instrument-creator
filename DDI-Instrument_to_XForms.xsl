@@ -18,7 +18,7 @@
 		<xsl:choose>
 			<!-- If we are deployed on an eXist-db install construct the correct path to the theme config --> 
 			<xsl:when test="$config/cfg:environment = 'exist-db'">
-				<xsl:copy-of select="concat('/Ramona/themes/',$config/cfg:themeName,'.xml')"/>
+				<xsl:copy-of select="concat('./themes/',$config/cfg:themeName,'/theme.xml')"/>
 			</xsl:when>
 			<!-- If we don't know the deployed environment assume the theme is in the default distribution directory --> 
 			<xsl:otherwise>
