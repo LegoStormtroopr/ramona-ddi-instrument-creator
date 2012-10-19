@@ -7,4 +7,5 @@
 	<defaultMembership>1</defaultMembership>
 	<themeName>koala</themeName>
 	<environment>local</environment>
+	<existBase>/db/ddi/xsl/ramona</existBase>
 </config>
