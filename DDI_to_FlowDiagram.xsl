@@ -89,7 +89,7 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="d:Loop" >
-		<span title="{@id}"><span class="loopBox">L</span> <xsl:value-of select="d:LoopWhile/r:Description"/> <small> (Loop)</small></span>
+		<span class="loopBox" id="{@id}">L</span> <xsl:value-of select="d:LoopWhile/r:Description"/>
 		<a href="#" class="showDetail">+/-</a>
 		<div class="detail">
 			<ul class="loop">
@@ -105,7 +105,7 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="d:Sequence" >
-		<span title="{@id}"><span class="sequenceBox">S</span> <xsl:value-of select="r:Label"/> <small> (Sequence)</small></span>
+		<span class="sequenceBox" id="{@id}">S</span> <xsl:value-of select="r:Label"/>
 		<a href="#" class="showDetail">+/-</a>
 		<div class="detail">
 			<ul class="sequence">
@@ -121,17 +121,15 @@
 		</div>
 	</xsl:template>
 	<xsl:template match="d:IfThenElse" >
-		
-			<span title="{@id}"><span class="ifbox">If</span><xsl:value-of select="d:IfCondition/r:Description"/></span>
-			<a href="#" class="showDetail HBD">+/-</a>
-			<div class="condition detail "><small>(<xsl:value-of select="@id"/>)</small>:
-			<xsl:apply-templates select="d:IfCondition/r:SourceQuestionReference"/>
-				Condition: <xsl:apply-templates select="d:IfCondition"/></div>
-			<ul class="if">
-				<xsl:apply-templates select="./d:ThenConstructReference" />
-				<xsl:apply-templates select="./d:ElseConstructReference" />
-			</ul>
-		
+		<span class="ifbox" id="{@id}">If</span><xsl:value-of select="d:IfCondition/r:Description"/>
+		<a href="#" class="showDetail HBD">+/-</a>
+		<div class="condition detail "><small>(<xsl:value-of select="@id"/>)</small>:
+		<xsl:apply-templates select="d:IfCondition/r:SourceQuestionReference"/>
+			Condition: <xsl:apply-templates select="d:IfCondition"/></div>
+		<ul class="if">
+			<xsl:apply-templates select="./d:ThenConstructReference" />
+			<xsl:apply-templates select="./d:ElseConstructReference" />
+		</ul>
 	</xsl:template>
 	<xsl:template match="r:SourceQuestionReference">
 		<xsl:variable name="id"><xsl:value-of select="r:ID"/></xsl:variable>
@@ -217,15 +215,13 @@
 		<xsl:variable name="question">
 			<xsl:value-of select="d:QuestionReference/r:ID"/>
 		</xsl:variable>
-		<span>
-			<span class="questionNumber" title="{$question}"><xsl:value-of select="exslt:node-set($numbers)/question[@id=$question]"/></span>
-			<span class="questionDetails">
-				<xsl:apply-templates select="//d:MultipleQuestionItem[@id=$question] | //d:QuestionItem[@id=$question]">
-					<xsl:with-param name="qcID">
-						<xsl:value-of select="@id"/>
-					</xsl:with-param>
-				</xsl:apply-templates>
-			</span>
+		<span class="questionNumber" id="{$question}"><xsl:value-of select="exslt:node-set($numbers)/question[@id=$question]"/></span>
+		<span class="questionDetails">
+			<xsl:apply-templates select="//d:MultipleQuestionItem[@id=$question] | //d:QuestionItem[@id=$question]">
+				<xsl:with-param name="qcID">
+					<xsl:value-of select="@id"/>
+				</xsl:with-param>
+			</xsl:apply-templates>
 		</span>
 	</xsl:template>
 	<!--
@@ -247,8 +243,11 @@
 		<xsl:apply-templates select="d:QuestionText"/>
 	</xsl:template>
 	<xsl:template match="d:StatementItem">
-		<div>
-		<em>Statement: </em><xsl:value-of select="substring(d:DisplayText,1,100)"/>...
+		<!-- "I" for instruction. S is already taken by Sequence, and If should be different enough. What is the difference between a statement and an instruction anyway? -->
+		<span class="statementBox" id="{@id}">I</span> Instruction: <span class="statementHead"><xsl:value-of select="substring(d:DisplayText,1,50)"/>...</span>
+		<a href="#" class="showDetail HBD">+/-</a>
+		<div class="detail statementText">
+			<xsl:apply-templates select="d:DisplayText"/>
 		</div>
 	</xsl:template>
 	<xsl:template match="d:QuestionText">

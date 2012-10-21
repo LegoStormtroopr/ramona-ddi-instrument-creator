@@ -5,10 +5,6 @@
 	<question visible="true">
 		<after>.</after>
 	</question>
-	<subquestion visible="true">
-		<before>(</before>
-		<after>)</after>
-	</subquestion>
 	<styles>
 		<style relative="true">./Questionnaire.css</style>
 	</styles>
