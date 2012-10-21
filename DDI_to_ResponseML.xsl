@@ -112,8 +112,8 @@
 	</xsl:template>
 		<xsl:template match="d:Loop" mode="dataBuilder">
 		<xsl:element name="rml:loop">
+			<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 			<rml:iteration>
-				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
 				<xsl:for-each select="d:ControlConstructReference">
 					<xsl:variable name="id">
 						<xsl:value-of select="r:ID"/>

@@ -3,10 +3,6 @@
 	<themeName>Ramona Basic theme</themeName>
 	<codeSchemeDisplay>full</codeSchemeDisplay>
 	<question visible="false"/>
-	<subquestion>
-		<before></before>
-		<after>.)</after>
-	</subquestion>
 	<styles>
 		<style relative="true">./ramona_main.css</style>
 		<style relative="true">./ramona_fonts.css</style>
