@@ -14,12 +14,12 @@
 			<body>
 				<!-- xsl:apply-templates select="$instrumentModel" mode="cleanr"/ -->
 			<xsl:variable name="skips">
-				<xsl:call-template name="makeSkips2">
+				<xsl:call-template name="makeSkips">
 					<xsl:with-param name="doc" select="$instrumentModel"/>
 				</xsl:call-template>
 			</xsl:variable>
 			<xsl:element name="img">
-				<xsl:attribute name="src">https://chart.googleapis.com/chart?chl=digraph x %7B<xsl:apply-templates select="exslt:node-set($skips)//skips2//skip:link"  mode="graphBuilder"/>%7D&amp;cht=gv</xsl:attribute>
+				<xsl:attribute name="src">https://chart.googleapis.com/chart?chl=digraph x %7B<xsl:apply-templates select="exslt:node-set($skips)//skips2//*"  mode="graphBuilder"/>%7D&amp;cht=gv</xsl:attribute>
 			</xsl:element>
 			<xsl:element name="img">
 				<xsl:attribute name="src">https://chart.googleapis.com/chart?chl=digraph x %7B<xsl:apply-templates select="exslt:node-set($skips)//skip:skips/*"  mode="graphBuilder2"/>%7D&amp;cht=gv</xsl:attribute>
@@ -38,7 +38,7 @@
 
 	<xsl:template match="d:Instrument" mode="graphBuilder">
 			<xsl:variable name="skips">
-				<xsl:call-template name="makeSkips2">
+				<xsl:call-template name="makeSkips">
 					<xsl:with-param name="doc" select="$instrumentModel"/>
 				</xsl:call-template>
 			</xsl:variable>digraph x %7B<xsl:apply-templates select="exslt:node-set($skips)//skips2//skip:link"  mode="graphBuilder"/>%7D
@@ -55,6 +55,15 @@
 	</xsl:template -->
 	
 	<xsl:template match="skip:link" mode="graphBuilder"><xsl:variable name="from" select="@from"/><xsl:variable name="to" select="@to"/>"<xsl:value-of select="exslt:node-set($numbers)/question[@qcID=$from]"/>"-%3E"<xsl:value-of select="exslt:node-set($numbers)/question[@qcID=$to]"/>";</xsl:template>
+	<xsl:template match="skip:sequenceGuide" mode="graphBuilder2"><xsl:variable name="from" select="@from"/>"<xsl:value-of select="@from"/>" [shape=diamond];<xsl:for-each select="skip:link">"<xsl:value-of select="$from"/>"-%3E"<xsl:value-of select="@to"/>";</xsl:for-each></xsl:template>
+		<xsl:template match="skip:loop" mode="graphBuilder">"<xsl:value-of select="@from"/>" [shape=square];"<xsl:value-of select="@from"/>"-%3E"<xsl:value-of select="*[1]/@from"/>"; subgraph cluster_<xsl:value-of select="@from"/> %7B <xsl:apply-templates select="*" mode="graphBuilder"/> %7D; "<xsl:value-of select="@from"/>_end"-%3E"<xsl:value-of select="@to"/>"</xsl:template>
+		
 	<xsl:template match="skip:link" mode="graphBuilder2">"<xsl:value-of select="@from"/>"-%3E"<xsl:value-of select="@to"/>";</xsl:template>
 	<xsl:template match="skip:sequenceGuide" mode="graphBuilder2"><xsl:variable name="from" select="@from"/>"<xsl:value-of select="@from"/>" [shape=diamond];<xsl:for-each select="skip:link">"<xsl:value-of select="$from"/>"-%3E"<xsl:value-of select="@to"/>";</xsl:for-each></xsl:template>
+	<xsl:template match="skip:loop" mode="graphBuilder2">"<xsl:value-of select="@from"/>" [shape=square];"<xsl:value-of select="@from"/>"-%3E"<xsl:value-of select="*[1]/@from"/>"; subgraph cluster_<xsl:value-of select="@from"/> %7B <xsl:apply-templates select="*" mode="graphBuilder2"/> %7D; "<xsl:value-of select="@from"/>_end"-%3E"<xsl:value-of select="@to"/>"</xsl:template>
+	
+	<xsl:template match="skip:link" mode="graphBuilder2">"<xsl:value-of select="@from"/>"-%3E"<xsl:value-of select="@to"/>";</xsl:template>
+	<xsl:template match="skip:sequenceGuide" mode="graphBuilder2"><xsl:variable name="from" select="@from"/>"<xsl:value-of select="@from"/>" [shape=diamond];<xsl:for-each select="skip:link">"<xsl:value-of select="$from"/>"-%3E"<xsl:value-of select="@to"/>";</xsl:for-each></xsl:template>
+	<xsl:template match="skip:loop" mode="graphBuilder2">"<xsl:value-of select="@from"/>" [shape=square];"<xsl:value-of select="@from"/>"-%3E"<xsl:value-of select="*[1]/@from"/>"; subgraph cluster_<xsl:value-of select="@from"/> %7B <xsl:apply-templates select="*" mode="graphBuilder2"/> %7D; "<xsl:value-of select="@from"/>_end"-%3E"<xsl:value-of select="@to"/>"</xsl:template>
+	
 </xsl:stylesheet>
