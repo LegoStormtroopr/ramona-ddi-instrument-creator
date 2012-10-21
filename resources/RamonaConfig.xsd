@@ -101,18 +101,6 @@
 						<xs:attribute name="visible" default="true" type="xs:boolean"/>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="subquestion" minOccurs="0" maxOccurs="1" >
-					<xs:annotation>
-						<xs:documentation xml:lang="en">A configuration option for adding styling text around sub-questions letters or roman numerals. For example, with a before value of ‘[‘ and an after value of ‘.)’ would look like; ‘[a.)’, ‘[b.)’, [iv.)’, etc…</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="before" minOccurs="0" maxOccurs="1" type="xs:string"/>
-							<xs:element name="after" minOccurs="0" maxOccurs="1" type="xs:string"/>
-						</xs:sequence> 
-						<xs:attribute name="visible" default="true" type="xs:boolean"/>
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="styles" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
 						<xs:documentation xml:lang="en">Contains sub-elements needed to create CSS Stylesheets link for styling the final web form. For each contained style element, a CSS link will be made in the final XForm instance.</xs:documentation>

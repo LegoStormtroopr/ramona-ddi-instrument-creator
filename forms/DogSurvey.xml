@@ -231,6 +231,15 @@
 				</d:QuestionScheme>
 				<d:ControlConstructScheme isMaintainable="true" id="DogSurvey_QuestionConstructs" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
 					<d:QuestionConstruct id="DogSurvey_QC_10" version="0.0.1">
+						<d:InterviewerInstructionReference>
+							<r:Scheme>
+								<r:ID>DogSurvey_Instructions</r:ID>
+								<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
+								<r:Version>0.0.1</r:Version>
+							</r:Scheme>
+							<r:ID>DogSurvey_Instruction_OldestDog</r:ID>
+							<r:Version>0.0.1</r:Version>
+						</d:InterviewerInstructionReference>
 						<d:QuestionReference>
 							<r:Scheme>
 								<r:ID>qsDogSurvey</r:ID>
@@ -238,7 +247,6 @@
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
 							<r:ID>DogSurvey_Q_10</r:ID>
-							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
@@ -250,7 +258,6 @@
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
 							<r:ID>DogSurvey_Q_20</r:ID>
-							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
@@ -262,7 +269,6 @@
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
 							<r:ID>DogSurvey_Q_25</r:ID>
-							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
@@ -274,7 +280,6 @@
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
 							<r:ID>DogSurvey_Q_30</r:ID>
-							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
@@ -286,7 +291,6 @@
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
 							<r:ID>DogSurvey_Q_40</r:ID>
-							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
@@ -298,7 +302,6 @@
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
 							<r:ID>DogSurvey_Q_50</r:ID>
-							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
@@ -310,7 +313,6 @@
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
 							<r:ID>DogSurvey_Q_05</r:ID>
-							<r:IdentifyingAgency>com.kidstrythisathome.ddirepo.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:QuestionReference>
 					</d:QuestionConstruct>
@@ -458,6 +460,15 @@
 						</d:ControlConstructReference>
 					</d:Sequence>
 				</d:ControlConstructScheme>
+				<d:InterviewerInstructionScheme id="DogSurvey_Instructions" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
+					<d:Instruction id="DogSurvey_Instruction_OldestDog" version="0.0.1">
+						<d:InstructionText>
+							<d:LiteralText>
+								<d:Text>When answering questions about your dog, if you have more than one dogs, answer only for the dog you have had for the longest period of time.</d:Text>
+							</d:LiteralText>						
+						</d:InstructionText>
+					</d:Instruction>
+				</d:InterviewerInstructionScheme>
 				<d:Instrument isMaintainable="true" id="Inst_1" version="0.0.1" agency="com.kidstrythisathome.ddirepo.legostormtroopr">
 					<d:InstrumentName>Australian Dog Ownership Survey</d:InstrumentName>
 					<r:Description><xhtml:p><xhtml:strong>This is an example <xhtml:a href="http://www.ddialliance.org">DDI 3.1 File</xhtml:a> for demonstrating the capabilities of the <xhtml:em>Ramona DDI3.1 to XForms Transform Engine</xhtml:em>.</xhtml:strong></xhtml:p><xhtml:div> This survey can be used to demonstrate the following common interactive survey requirements:
