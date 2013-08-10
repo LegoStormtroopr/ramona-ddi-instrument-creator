@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DDIInstance id="x0" version="0.0.1" agency="au.gov.abs.legostormtroopr" xmlns="ddi:instance:3_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:instance:3_1 P:\DDI_3_1_Spec\XMLSchema\instance.xsd" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1">
+<DDIInstance id="x0" version="0.0.1" agency="au.gov.abs.legostormtroopr" xmlns="ddi:instance:3_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:instance:3_1 P:\DDI_3_1_Spec\XMLSchema\instance.xsd" xmlns:ns1="ddi:instance:3_1" xmlns:a="ddi:archive:3_1" xmlns:r="ddi:reusable:3_1" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dc="ddi:dcelements:3_1" xmlns:ns7="http://purl.org/dc/elements/1.1/" xmlns:cm="ddi:comparative:3_1" xmlns:d="ddi:datacollection:3_1" xmlns:l="ddi:logicalproduct:3_1" xmlns:c="ddi:conceptualcomponent:3_1" xmlns:ds="ddi:dataset:3_1" xmlns:p="ddi:physicaldataproduct:3_1" xmlns:pr="ddi:ddiprofile:3_1" xmlns:s="ddi:studyunit:3_1" xmlns:g="ddi:group:3_1" xmlns:pi="ddi:physicalinstance:3_1" xmlns:m3="ddi:physicaldataproduct_ncube_inline:3_1" xmlns:m1="ddi:physicaldataproduct_ncube_normal:3_1" xmlns:m2="ddi:physicaldataproduct_ncube_tabular:3_1"  xml:lang="en">
 	<g:ResourcePackage id="LFS_Test_Form_1" version="0.0.1" agency="au.gov.abs.legostormtroopr">
 		<r:Citation>
 			<r:Title>Australian Labour Force Survey</r:Title>
@@ -4380,7 +4380,7 @@
 								<r:IdentifyingAgency>au.gov.abs.legostormtroopr</r:IdentifyingAgency>
 								<r:Version>0.0.1</r:Version>
 							</r:Scheme>
-							<r:ID>LFS_QC_90</r:ID>
+							<r:ID>LFS_QC_93</r:ID>
 							<r:IdentifyingAgency>au.gov.abs.legostormtroopr</r:IdentifyingAgency>
 							<r:Version>0.0.1</r:Version>
 						</d:ControlConstructReference>
