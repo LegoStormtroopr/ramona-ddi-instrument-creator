@@ -4,7 +4,7 @@ h2 {margin-bottom:5px;}
 #mainWindow {margin-left:255px;border-left:1px solid black;padding-left:10px;}
 #instrumentInfo {padding-left:15px;margin-bottom:2px;}
 
-.ifbox, .questionNumber, .sequenceBox, .loopBox {
+.ifbox, .questionNumber, .sequenceBox, .loopBox, .statementBox {
 	display:inline-block; width:20px;
 	text-align:right;
 	font-weight:bold;
@@ -14,19 +14,41 @@ h2 {margin-bottom:5px;}
 	text-decoration:none;
 	margin-right:1ex;
 }
+
+/* Start of colours for different objects
+    The following theme should be used:
+        * Sequences: Blue
+        * Loops: Yellow
+        * If/Conditionals: Green
+        * Questions: Red
+        * Statements: Purple          
+*/
 .sequenceBox {
-	background-color:lightblue;
+	background-color:CornflowerBlue;
 }
 .loopBox {
-	background:lightyellow;
+	background:goldenrod;
 }
 .ifbox{
 	background-color:lightgreen;
 }
-.questionNumber{
-	background-color:salmon;
-	
+.statementBox{
+    background-color:violet;
 }
+.questionNumber{
+	background-color:salmon;	
+}
+.sequence:hover {
+	background-color: lightblue;
+}
+.loop:hover {
+	background-color:lightyellow;
+}
+.if:hover {
+	background-color: lightgreen;
+}
+/* End Colours */
+
 .questionDetails {
 	padding-left:50px;
 	display:block;
@@ -37,6 +59,7 @@ h2 {margin-bottom:5px;}
 	font-size:75%;
 	border:1px solid black;background-color:lightgray;
 	padding:2px;
+	margin-left:5px;
 	text-decoration:none;
 	}
 .HBD + .detail {
@@ -63,12 +86,7 @@ li {
 .condition {
 	padding-left:10px;
 }
-.sequence:hover {
-	background-color: lightblue;
-}
-.loop:hover {
-	background-color:goldenrod;
-}
+
 .sequence>li, .loop>li {
 	list-style-type:none;
 	border-left:1px solid black;
@@ -76,15 +94,36 @@ li {
 	padding-left:0px;
 	margin-left:1px;	
 }
-.sequence>li:before, .loop>li:before {
-	content:"\2500";
-	display:inline;
-}
+
 .sequence>li:last-child, .loop>li:last-child  {
 	border-left:0px solid black;
 
 }
 
+.if>li {
+	list-style-type:none;
+	border-left:1px solid black;
+	padding-left:15px;
+}
+
+.if>li>strong {
+	position:relative;
+	margin-left:-15px;
+	margin-right:0px;
+	padding-left:0px;
+}
+
+/* The real finicky CSS needed to make sure the borders/listing lines stop at the start of the last list element */
+.if>li:last-child {
+	border-left:0px solid black;
+}
+/* The following CSS is stuff that makes a real nice tree effect, but doesnt really work in IE. Oh well. */ 
+/* An even more finicky one to get the lines to show up before list elements to complete the tree effect */
+.sequence>li:before, .loop>li:before {
+	content:"\2500";
+	display:inline;
+}
+/* The worse one needed to get the right angle line to show up before the last list element */
 .sequence>li:last-child:before, .loop>li:last-child:before {
 	content:"\2514";
 	position:relative;
@@ -92,34 +131,37 @@ li {
 	padding-right:0px;
 	margin-right:0px;
 }
-.if:hover {
-	background-color: lightgreen;
-}
-.if>li {
-	list-style-type:none;
-	border-left:1px solid black;
-	padding-left:15px;
-}
+/* More crazy CSS to have lines and arrows come before the main conditions in an IfThenElse conditional */
 .if>li:before {
 	content:"\2500\25B6";
 	display:inline;
 	position:relative;
 	left:-15px;
 }
-.if>li>strong {
-	position:relative;
-	left:-15px;
-}
-.if>li:last-child {
-	border-left:0px solid black;
-}
+/* And the most worstest one needed to get the line and arrow to show up for the last child parts of IfThenElse links. This is usually an else, but could be a Then or ElseIf if no else component is there */
 .if>li:last-child:before {
 	border-left:0px solid black;
 	content:"\2514\2500\25B6";
 	display:inline;
 	position:relative;
+	top:-4px;
 	left:-20px;
+	z-index:-1;
 }
 .if>li>.detail {
 	padding-left:20px;
+}
+
+.statementText, .statementHead {
+    font-style: italic;
+    
+}
+
+.statementText {
+    margin: 0px 15px 0px 50px;
+    max-width:40em;
+    padding:10px;
+    border: 1px solid black;
+    text-align:justify;
+    background-color:AntiqueWhite;   
 }

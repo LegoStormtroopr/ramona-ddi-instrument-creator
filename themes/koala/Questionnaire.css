@@ -17,6 +17,9 @@ font-family: "Palatino Linotype", Palatino, Palladio, "URW Palladio L", "Book An
 .mainForm {
 	padding-left:25px;
 }
+.sequence {
+    padding-top:10px;
+}
 
 /*
 	MAIN LAYOUT FOR THE TWO COLUMN STUFF IS HERE
@@ -100,7 +103,9 @@ xf|input  xf|label, xf|select  xf|label, xf|select1  xf|label, xf|textarea  xf|l
 
 .questionText {
 	margin-left:35px;display: block;
+	position:absolute;top:-20px
 }
+
 .questionText .words {
  font-weight: normal;
 }
@@ -119,14 +124,32 @@ xf|input  xf|label, xf|select  xf|label, xf|select1  xf|label, xf|textarea  xf|l
 	float:left;
 	text-align:right;
 	width:20px;
+	position: absolute;
+    top: -20px;
 }
 
 .subquestion {
+    margin-bottom:15px;
 	padding-left: 20px;
 }
-
-.subquestion, .subquestion * {
-	font-weight: normal !important;
+.subquestion .questionText, .subquestion .questionNumber {
+    position:relative;top:0px;
+    display:inline-block;
+    margin-left:5px;
+}
+.subquestion xf|label {
+    display:inline;
+    margin-left:0px;
+}
+ol.subquestion {
+  list-style-type: lower-alpha;
+}
+.subquestion li {
+    margin-left:50px;
+    padding-left:0px;
+}
+.subquestion xf|value {
+    margin-left:5px;
 }
 
 .instrumentDescription h2, .statement h2, .questionNote h2 {
@@ -148,7 +171,7 @@ xf|input  xf|label, xf|select  xf|label, xf|select1  xf|label, xf|textarea  xf|l
 	margin-top: 5px;
 }
 
-.instrumentDescription, .statement, .questionNote {
+.instrumentDescription, .statement, .questionNote, .InterviewerInstruction {
 	font-size: 85%;
 	text-align:justify;
 	border:5px solid white;
@@ -158,9 +181,15 @@ xf|input  xf|label, xf|select  xf|label, xf|select1  xf|label, xf|textarea  xf|l
 	margin-bottom:2em;
 	padding:15px;
 }
+ 
+.InterviewerInstruction {padding:5px;margin-left:35px;margin-bottom:10px;}
+.InterviewerInstruction > em {color:FireBrick; font-weight:bold; font-size:115%}
 
-.InterviewerInstruction {color:red;font-weight:bold;display:block;}
-
+.questionContainer {
+    position:relative;
+    margin-top:30px;
+    margin-bottom:-5px;
+}
 ul {
 	margin: 15px;
 	padding:1px;
@@ -176,15 +205,15 @@ ul {
 	display:inline;
 }
 
-.words, .wordsub, .wordsub .value,   {
+.words, .wordsub, .wordsub .value {
 	display:inline;
 }
 
 .sectionTitle {
+    margin-top:0px;
 	font-weight:bold;
 	font-size:130%;
 }
-
 
 .IncludesExcludes {
 	border:5px solid white;
@@ -230,12 +259,7 @@ ul, ol, li {
 	display: inline !important;
 }
 
-xf|disabled .skipStatement {
-	display: hidden !important;
-	visibility: hidden !important;
-}
-
-xf|disabled .statement {
+xf|disabled .statement, xf|disabled .skipStatement, xf|disabled .InterviewerInstruction {
 	display: none !important;
 	visibility: hidden !important;
 }
